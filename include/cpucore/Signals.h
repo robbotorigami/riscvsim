@@ -20,10 +20,6 @@ public:
 	//! Initialize the signal. Must be able to assign 0 to typebase
 	Signal(std::string name = "Unamed"){
 		data = 0;
-
-		tags += LogTag("Name", "Signal");
-		tags += LogTag("Instance", name);
-		Logger::Stream(LEVEL_INFO, tags) << "Initialized";
 	}
 
 	/*!
@@ -32,7 +28,6 @@ public:
 	 * \param data the data to be inserted
 	 */
 	void setData(typebase data){
-		Logger::Stream(LEVEL_DEBUG, tags) << "Putting " << data << "on signal";
 		this->data = data;
 	}
 
@@ -42,16 +37,12 @@ public:
 	 * \return the current data in the signal
 	 */
 	typebase getData(typebase data){
-		Logger::Stream(LEVEL_DEBUG, tags) << "Reading " << data << "from signal";
 		return data;
 	}
 
 private:
 	//! The data on the signal line
 	typebase data;
-
-	//! Tags for Logging
-	LogTags tags;
 };
 
 
