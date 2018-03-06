@@ -15,6 +15,13 @@
 class RISCVCpu{
 public:
 	RISCVCpu();
+
+	void fetch(Instruction*);
+	void decode(Instruction*);
+	void execute(Instruction*);
+	void memory(Instruction*);
+	void writeback(Instruction*);
+
 private:
 	//! The program counter for the processor
 	uint64_t pc;
