@@ -18,23 +18,26 @@
 Memory::Memory()
 :data()
 {
-	textAddr = 0x400000; //Offset for Reserved section
-	dataAddr = textAddr + text;
-	stackAddr = dataAddr + stack;
-	this->data.resize(stackAddr); //Allocate enough memory
+	dataAddr = 0;
+	textAddr = 0;
+	stackAddr = 0;
 }
 
 /*!
  * \brief Constructs a memory object from the provided filename
  */
-void Memory::fromFile(std::string filename)
+void Memory::buildFromImage(std::string filename)
 {
-	std::ifstream fs(filename);
-	textAddr = 0x400000; //Offset for Reserved section
+	std::ifstream fs(filename, std::ios::binary);
+	uint32_t text, data, stack;
+	fs.read(reinterpret_cast<char *>(&text), sizeof(text));
+	fs.read(reinterpret_cast<char *>(&data), sizeof(data));
+	fs.read(reinterpret_cast<char *>(&stack), sizeof(stack));
+	textAddr = 0x00000000;
 	dataAddr = textAddr + text;
-	stackAddr = dataAddr + stack;
+	stackAddr = dataAddr + data + stack;
 	this->data.resize(stackAddr); //Allocate enough memory
-
+	fs.read(reinterpret_cast<char *>(&this->data[textAddr]), text+data+stack);
 }
 
 
