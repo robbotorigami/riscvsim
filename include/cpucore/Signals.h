@@ -14,9 +14,9 @@
 /*!
  * \brief abstract class that implements the callback interface for a signal
  */
-class Updatable{
+class DrivenObject{
 public:
-	virtual ~Updatable(){}
+	virtual ~DrivenObject(){}
 	virtual void computeSignals() = 0;
 };
 
@@ -37,8 +37,8 @@ public:
 	 *
 	 * \param updatable the object to be updated
 	 */
-	void registerUpdatable(Updatable* updatable){
-		updatelist.push_back(updatable);
+	void registerDriven(DrivenObject* driven){
+		updatelist.push_back(driven);
 	}
 
 	/*!
@@ -75,7 +75,7 @@ public:
 
 private:
 	//! The driving node for this signal
-	std::vector<Updatable*> updatelist;
+	std::vector<DrivenObject*> updatelist;
 	//! The data on the signal line
 	typebase data;
 };
@@ -84,7 +84,7 @@ private:
  * \brief Class to implement a simple boolean mux
  */
 template <typename datatype>
-class Mux: public Updatable{
+class Mux: public DrivenObject{
 public:
 	Mux(Signal<datatype>& input1,
 			Signal<datatype>& input2,
@@ -95,9 +95,9 @@ public:
 	 control(control),
 	 output(output)
 	{
-		input1.registerUpdatable(this);
-		input2.registerUpdatable(this);
-		control.registerUpdatable(this);
+		input1.registerDriven(this);
+		input2.registerDriven(this);
+		control.registerDriven(this);
 	}
 
 	void computeSignals(){

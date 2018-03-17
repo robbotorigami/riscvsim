@@ -24,11 +24,11 @@ RegisterFile::RegisterFile(
  readData2(readData2),
  regWrite(regWrite)
 {
-	readRegister1.registerUpdatable(this);
-	readRegister2.registerUpdatable(this);
-	writeRegister.registerUpdatable(this);
-	writeData.registerUpdatable(this);
-	regWrite.registerUpdatable(this);
+	readRegister1.registerDriven(this);
+	readRegister2.registerDriven(this);
+	writeRegister.registerDriven(this);
+	writeData.registerDriven(this);
+	regWrite.registerDriven(this);
 
 	registers.resize(32, 0);
 }

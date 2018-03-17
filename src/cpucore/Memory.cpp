@@ -6,6 +6,7 @@
  */
 
 #include "cpucore/Memory.h"
+#include <fstream>
 
 /*!
  * \brief Constructs memory object with the specified sizes for
@@ -14,13 +15,26 @@
  * \param data the size of the data section
  * \param stack the size of the stack
  */
-Memory::Memory(size_t text, size_t data, size_t stack)
+Memory::Memory()
 :data()
 {
 	textAddr = 0x400000; //Offset for Reserved section
 	dataAddr = textAddr + text;
 	stackAddr = dataAddr + stack;
 	this->data.resize(stackAddr); //Allocate enough memory
+}
+
+/*!
+ * \brief Constructs a memory object from the provided filename
+ */
+void Memory::fromFile(std::string filename)
+{
+	std::ifstream fs(filename);
+	textAddr = 0x400000; //Offset for Reserved section
+	dataAddr = textAddr + text;
+	stackAddr = dataAddr + stack;
+	this->data.resize(stackAddr); //Allocate enough memory
+
 }
 
 

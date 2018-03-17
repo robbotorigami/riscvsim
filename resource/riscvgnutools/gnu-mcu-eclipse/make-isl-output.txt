@@ -1,0 +1,175 @@
+  GEN      gitversion.h
+make  all-recursive
+make[1]: Entering directory '/tmp/build/centos64/isl-0.18'
+Making all in .
+make[2]: Entering directory '/tmp/build/centos64/isl-0.18'
+  CC       isl_gmp.lo
+  CC       isl_val_gmp.lo
+  CC       isl_ast_int.lo
+  CC       isl_aff.lo
+  CC       isl_affine_hull.lo
+  CC       isl_arg.lo
+  CC       isl_ast.lo
+  CC       isl_ast_build.lo
+  CC       isl_ast_build_expr.lo
+  CC       isl_ast_codegen.lo
+  CC       isl_ast_graft.lo
+  CC       isl_band.lo
+  CC       basis_reduction_tab.lo
+  CC       isl_bernstein.lo
+  CC       isl_blk.lo
+  CC       isl_bound.lo
+  CC       isl_coalesce.lo
+  CC       isl_constraint.lo
+  CC       isl_convex_hull.lo
+  CC       isl_ctx.lo
+  CC       isl_deprecated.lo
+  CC       isl_dim_map.lo
+  CC       isl_equalities.lo
+  CC       isl_factorization.lo
+  CC       isl_farkas.lo
+  CC       isl_ffs.lo
+  CC       isl_flow.lo
+  CC       isl_fold.lo
+  CC       isl_hash.lo
+  CC       isl_id_to_ast_expr.lo
+  CC       isl_id_to_id.lo
+  CC       isl_id_to_pw_aff.lo
+  CC       isl_ilp.lo
+  CC       isl_input.lo
+  CC       isl_local.lo
+  CC       isl_local_space.lo
+  CC       isl_lp.lo
+  CC       isl_map.lo
+  CC       isl_map_list.lo
+  CC       isl_map_simplify.lo
+  CC       isl_map_subtract.lo
+  CC       isl_map_to_basic_set.lo
+  CC       isl_mat.lo
+  CC       isl_morph.lo
+  CC       isl_id.lo
+  CC       isl_obj.lo
+  CC       isl_options.lo
+  CC       isl_output.lo
+  CC       isl_point.lo
+  CC       isl_polynomial.lo
+  CC       isl_printer.lo
+  CC       print.lo
+  CC       isl_range.lo
+  CC       isl_reordering.lo
+  CC       isl_sample.lo
+  CC       isl_scan.lo
+  CC       isl_schedule.lo
+  CC       isl_schedule_band.lo
+  CC       isl_schedule_node.lo
+  CC       isl_schedule_read.lo
+  CC       isl_schedule_tree.lo
+  CC       isl_schedule_constraints.lo
+  CC       isl_scheduler.lo
+  CC       isl_set_list.lo
+  CC       isl_sort.lo
+  CC       isl_space.lo
+  CC       isl_stream.lo
+  CC       isl_seq.lo
+  CC       isl_tab.lo
+  CC       isl_tab_pip.lo
+  CC       isl_tarjan.lo
+  CC       isl_transitive_closure.lo
+  CC       isl_union_map.lo
+  CC       isl_val.lo
+  CC       isl_vec.lo
+  CC       isl_version.lo
+  CC       isl_vertices.lo
+  CC       isl_test.o
+  CC       polyhedron_sample.o
+  CC       pip.o
+  CC       polyhedron_minimize.o
+  CC       polytope_scan.o
+  CC       polyhedron_detect_equalities.o
+  CC       cat.o
+  CC       closure.o
+  CC       bound.o
+  CC       schedule.o
+  CC       codegen.o
+  CC       isl_test_int.o
+  CCLD     libisl.la
+  CCLD     isl_test
+  CCLD     isl_polyhedron_sample
+  CCLD     isl_pip
+  CCLD     isl_polyhedron_minimize
+  CCLD     isl_polytope_scan
+  CCLD     isl_polyhedron_detect_equalities
+  CCLD     isl_cat
+  CCLD     isl_closure
+  CCLD     isl_bound
+  CCLD     isl_schedule
+  CCLD     isl_codegen
+  CCLD     isl_test_int
+make[2]: Leaving directory '/tmp/build/centos64/isl-0.18'
+Making all in doc
+make[2]: Entering directory '/tmp/build/centos64/isl-0.18/doc'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/build/centos64/isl-0.18/doc'
+make[1]: Leaving directory '/tmp/build/centos64/isl-0.18'
+if test -z 'strip'; then \
+  make  INSTALL_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/isl-0.18/install-sh -c -s" \
+    install_sh_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/isl-0.18/install-sh -c -s" INSTALL_STRIP_FLAG=-s \
+      install; \
+else \
+  make  INSTALL_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/isl-0.18/install-sh -c -s" \
+    install_sh_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/isl-0.18/install-sh -c -s" INSTALL_STRIP_FLAG=-s \
+    "INSTALL_PROGRAM_ENV=STRIPPROG='strip'" install; \
+fi
+make[1]: Entering directory '/tmp/build/centos64/isl-0.18'
+make  install-recursive
+make[2]: Entering directory '/tmp/build/centos64/isl-0.18'
+Making install in .
+make[3]: Entering directory '/tmp/build/centos64/isl-0.18'
+make[4]: Entering directory '/tmp/build/centos64/isl-0.18'
+ /bin/mkdir -p '/tmp/install/centos64/lib'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c -s  libisl.la '/tmp/install/centos64/lib'
+libtool: install: /usr/bin/install -c .libs/libisl.lai /tmp/install/centos64/lib/libisl.la
+libtool: install: /usr/bin/install -c .libs/libisl.a /tmp/install/centos64/lib/libisl.a
+libtool: install: strip --strip-debug /tmp/install/centos64/lib/libisl.a
+libtool: install: chmod 644 /tmp/install/centos64/lib/libisl.a
+libtool: install: ranlib /tmp/install/centos64/lib/libisl.a
+libtool: finish: PATH="/opt/texlive/bin/x86_64-linux:/opt/xbb/bin:/opt/texlive/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin" ldconfig -n /tmp/install/centos64/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /tmp/install/centos64/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+Cannot find isl library name. GDB bindings not installed.
+ /bin/mkdir -p '/tmp/install/centos64/include/isl/deprecated'
+ /usr/bin/install -c -m 644 /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/aff_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/ast_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/constraint_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/ilp_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/map_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/mat_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/point_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/polynomial_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/set_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/union_map_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/val_int.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/deprecated/vec_int.h '/tmp/install/centos64/include/isl/deprecated'
+ /bin/mkdir -p '/tmp/install/centos64/include/isl'
+ /usr/bin/install -c -m 644 include/isl/stdint.h '/tmp/install/centos64/include/isl'
+ /bin/mkdir -p '/tmp/install/centos64/lib/pkgconfig'
+ /usr/bin/install -c -m 644 isl.pc '/tmp/install/centos64/lib/pkgconfig'
+ /bin/mkdir -p '/tmp/install/centos64/include/isl'
+ /usr/bin/install -c -m 644 /Host/Work/riscv-none-gcc/isl-0.18/include/isl/val_gmp.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/aff.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/aff_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/arg.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/ast.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/ast_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/ast_build.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/band.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/constraint.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/ctx.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/flow.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/id.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/id_to_ast_expr.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/id_to_id.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/id_to_pw_aff.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/ilp.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/hash.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/hmap.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/hmap_templ.c /Host/Work/riscv-none-gcc/isl-0.18/include/isl/list.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/local_space.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/lp.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/mat.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/map.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/map_to_basic_set.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/map_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe_ast_expr.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe_basic_set.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe_id.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe_pw_aff.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/maybe_templ.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/multi.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/obj.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/options.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/point.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/polynomial.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/polynomial_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/printer.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/printer_type.h '/tmp/install/centos64/include/isl'
+ /usr/bin/install -c -m 644 /Host/Work/riscv-none-gcc/isl-0.18/include/isl/schedule.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/schedule_node.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/schedule_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/set.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/set_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/space.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/stream.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/union_map.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/union_map_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/union_set.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/union_set_type.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/val.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/vec.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/version.h /Host/Work/riscv-none-gcc/isl-0.18/include/isl/vertices.h '/tmp/install/centos64/include/isl'
+make[4]: Leaving directory '/tmp/build/centos64/isl-0.18'
+make[3]: Leaving directory '/tmp/build/centos64/isl-0.18'
+Making install in doc
+make[3]: Entering directory '/tmp/build/centos64/isl-0.18/doc'
+make[4]: Entering directory '/tmp/build/centos64/isl-0.18/doc'
+make[4]: Nothing to be done for 'install-exec-am'.
+make[4]: Nothing to be done for 'install-data-am'.
+make[4]: Leaving directory '/tmp/build/centos64/isl-0.18/doc'
+make[3]: Leaving directory '/tmp/build/centos64/isl-0.18/doc'
+make[2]: Leaving directory '/tmp/build/centos64/isl-0.18'
+make[1]: Leaving directory '/tmp/build/centos64/isl-0.18'

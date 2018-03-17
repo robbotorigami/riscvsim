@@ -28,7 +28,7 @@ protected:
 		uint32_t immed41  : 4;
 		uint32_t immed11  : 1;
 		uint32_t opcode   : 7;
-		uint32_t immed    : 12;
+		uint32_t immed    : 13;
 	}fields;
 };
 

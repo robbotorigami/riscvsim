@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <cassert>
 #include <vector>
+#include <string>
 
 typedef uint32_t memaddress;
 
@@ -19,7 +20,9 @@ typedef uint32_t memaddress;
  */
 class Memory{
 public:
-	Memory(size_t text, size_t data, size_t stack);
+	Memory();
+
+	void buildFromImage(std::string filename);
 
 	/*!
 	 * \brief Template function to read from memory

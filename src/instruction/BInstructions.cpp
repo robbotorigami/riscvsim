@@ -35,7 +35,10 @@ void BInstruction::parseFields(inscode code){
 
 std::string BInstruction::asString(){
 	std::stringstream ss;
-	ss << getName() << " x" << fields.rs1 << ", x" << fields.rs2 << ", " << fields.immed;
+	//Sign extend when printing
+	int16_t immed = ((uint16_t)fields.immed << 3);
+	immed >>= 3;
+	ss << getName() << " x" << fields.rs1 << ", x" << fields.rs2 << ", " << immed;
 	return ss.str();
 }
 

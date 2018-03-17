@@ -26,8 +26,25 @@ void IInstruction::parseFields(inscode code){
 }
 
 std::string IInstruction::asString(){
+	//Sign Extend this thing out
+	int16_t immed = fields.immed;
+	immed <<= 4;
+	immed >>= 4;
+	if(!getName().compare(0, 1, "L")){
+		//This is a load instruction so the syntax is a little wonky
+		std::stringstream ss;
+		ss << getName() << " x" << fields.rd << ", " << immed << "(x" << fields.rs1 << ")";
+		return ss.str();
+	}
+
+	if(!getName().compare(0, 4, "SLLI") || !getName().compare(0, 4, "SRLI") || !getName().compare(0, 4, "SRAI")){
+		//This is a shift instruction, so mask the bits in the immediate out
+		std::stringstream ss;
+		ss << getName() << " x" << fields.rd << ", x" << fields.rs1 << ", " << (immed & 0x03F);
+		return ss.str();
+	}
 	std::stringstream ss;
-	ss << getName() << " x" << fields.rd << ", x" << fields.rs1 << ", " << fields.immed;
+	ss << getName() << " x" << fields.rd << ", x" << fields.rs1 << ", " << immed;
 	return ss.str();
 }
 

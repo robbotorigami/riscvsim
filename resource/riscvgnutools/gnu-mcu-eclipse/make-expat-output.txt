@@ -1,0 +1,175 @@
+make  all-recursive
+make[1]: Entering directory '/tmp/build/centos64/expat-2.2.5'
+Making all in lib
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/lib'
+/bin/sh ../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I..   -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT loadlibrary.lo -MD -MP -MF .deps/loadlibrary.Tpo -c -o loadlibrary.lo /Host/Work/riscv-none-gcc/expat-2.2.5/lib/loadlibrary.c
+/bin/sh ../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I..   -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlparse.lo -MD -MP -MF .deps/xmlparse.Tpo -c -o xmlparse.lo /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmlparse.c
+/bin/sh ../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I..   -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmltok.lo -MD -MP -MF .deps/xmltok.Tpo -c -o xmltok.lo /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmltok.c
+/bin/sh ../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I..   -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlrole.lo -MD -MP -MF .deps/xmlrole.Tpo -c -o xmlrole.lo /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmlrole.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I.. -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlparse.lo -MD -MP -MF .deps/xmlparse.Tpo -c /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmlparse.c -o xmlparse.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I.. -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmltok.lo -MD -MP -MF .deps/xmltok.Tpo -c /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmltok.c -o xmltok.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I.. -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT loadlibrary.lo -MD -MP -MF .deps/loadlibrary.Tpo -c /Host/Work/riscv-none-gcc/expat-2.2.5/lib/loadlibrary.c -o loadlibrary.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/lib -I.. -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlrole.lo -MD -MP -MF .deps/xmlrole.Tpo -c /Host/Work/riscv-none-gcc/expat-2.2.5/lib/xmlrole.c -o xmlrole.o
+mv -f .deps/loadlibrary.Tpo .deps/loadlibrary.Plo
+mv -f .deps/xmlrole.Tpo .deps/xmlrole.Plo
+mv -f .deps/xmlparse.Tpo .deps/xmlparse.Plo
+mv -f .deps/xmltok.Tpo .deps/xmltok.Plo
+/bin/sh ../libtool  --tag=CC   --mode=link gcc  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -no-undefined -version-info 7:7:6 -rpath /tmp/install/centos64/lib -L/tmp/install/centos64/lib -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o libexpat.la -rpath /tmp/install/centos64/lib loadlibrary.lo xmlparse.lo xmltok.lo xmlrole.lo  
+libtool: link: ar cru .libs/libexpat.a  loadlibrary.o xmlparse.o xmltok.o xmlrole.o
+libtool: link: ranlib .libs/libexpat.a
+libtool: link: ( cd ".libs" && rm -f "libexpat.la" && ln -s "../libexpat.la" "libexpat.la" )
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/lib'
+Making all in examples
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/examples'
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/examples -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/examples/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT elements.o -MD -MP -MF .deps/elements.Tpo -c -o elements.o /Host/Work/riscv-none-gcc/expat-2.2.5/examples/elements.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/examples -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/examples/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT outline.o -MD -MP -MF .deps/outline.Tpo -c -o outline.o /Host/Work/riscv-none-gcc/expat-2.2.5/examples/outline.c
+mv -f .deps/elements.Tpo .deps/elements.Po
+/bin/sh ../libtool  --tag=CC   --mode=link gcc  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing  -L/tmp/install/centos64/lib -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o elements elements.o ../lib/libexpat.la 
+mv -f .deps/outline.Tpo .deps/outline.Po
+/bin/sh ../libtool  --tag=CC   --mode=link gcc  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing  -L/tmp/install/centos64/lib -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o outline outline.o ../lib/libexpat.la 
+libtool: link: gcc -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o elements elements.o  -L/tmp/install/centos64/lib ../lib/.libs/libexpat.a
+libtool: link: gcc -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o outline outline.o  -L/tmp/install/centos64/lib ../lib/.libs/libexpat.a
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/examples'
+Making all in tests
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making all in .
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests'
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT chardata.o -MD -MP -MF .deps/chardata.Tpo -c -o chardata.o /Host/Work/riscv-none-gcc/expat-2.2.5/tests/chardata.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT structdata.o -MD -MP -MF .deps/structdata.Tpo -c -o structdata.o /Host/Work/riscv-none-gcc/expat-2.2.5/tests/structdata.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT memcheck.o -MD -MP -MF .deps/memcheck.Tpo -c -o memcheck.o /Host/Work/riscv-none-gcc/expat-2.2.5/tests/memcheck.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT minicheck.o -MD -MP -MF .deps/minicheck.Tpo -c -o minicheck.o /Host/Work/riscv-none-gcc/expat-2.2.5/tests/minicheck.c
+mv -f .deps/chardata.Tpo .deps/chardata.Po
+mv -f .deps/memcheck.Tpo .deps/memcheck.Po
+mv -f .deps/minicheck.Tpo .deps/minicheck.Po
+mv -f .deps/structdata.Tpo .deps/structdata.Po
+rm -f libruntests.a
+ar cru libruntests.a chardata.o structdata.o memcheck.o minicheck.o 
+ranlib libruntests.a
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making all in benchmark
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/benchmark -I../..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/tests/benchmark/../../lib -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT benchmark.o -MD -MP -MF .deps/benchmark.Tpo -c -o benchmark.o /Host/Work/riscv-none-gcc/expat-2.2.5/tests/benchmark/benchmark.c
+mv -f .deps/benchmark.Tpo .deps/benchmark.Po
+/bin/sh ../../libtool  --tag=CC   --mode=link gcc  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing  -L/tmp/install/centos64/lib -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o benchmark benchmark.o ../../lib/libexpat.la 
+libtool: link: gcc -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o benchmark benchmark.o  -L/tmp/install/centos64/lib ../../lib/.libs/libexpat.a
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making all in xmlwf
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/../lib  -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlwf-xmlwf.o -MD -MP -MF .deps/xmlwf-xmlwf.Tpo -c -o xmlwf-xmlwf.o `test -f 'xmlwf.c' || echo '/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/'`xmlwf.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/../lib  -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlwf-xmlfile.o -MD -MP -MF .deps/xmlwf-xmlfile.Tpo -c -o xmlwf-xmlfile.o `test -f 'xmlfile.c' || echo '/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/'`xmlfile.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/../lib  -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlwf-codepage.o -MD -MP -MF .deps/xmlwf-codepage.Tpo -c -o xmlwf-codepage.o `test -f 'codepage.c' || echo '/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/'`codepage.c
+gcc -DHAVE_CONFIG_H -I. -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf -I..  -I/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/../lib  -I/tmp/install/centos64/include -DHAVE_EXPAT_CONFIG_H  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -MT xmlwf-unixfilemap.o -MD -MP -MF .deps/xmlwf-unixfilemap.Tpo -c -o xmlwf-unixfilemap.o `test -f 'unixfilemap.c' || echo '/Host/Work/riscv-none-gcc/expat-2.2.5/xmlwf/'`unixfilemap.c
+mv -f .deps/xmlwf-codepage.Tpo .deps/xmlwf-codepage.Po
+mv -f .deps/xmlwf-unixfilemap.Tpo .deps/xmlwf-unixfilemap.Po
+mv -f .deps/xmlwf-xmlfile.Tpo .deps/xmlwf-xmlfile.Po
+mv -f .deps/xmlwf-xmlwf.Tpo .deps/xmlwf-xmlwf.Po
+/bin/sh ../libtool  --tag=CC   --mode=link gcc  -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing  -L/tmp/install/centos64/lib -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o xmlwf xmlwf-xmlwf.o xmlwf-xmlfile.o xmlwf-codepage.o xmlwf-unixfilemap.o ../lib/libexpat.la 
+libtool: link: gcc -ffunction-sections -fdata-sections -m64 -pipe -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -fno-strict-aliasing -static-libstdc++ -Wl,--gc-sections -fno-strict-aliasing -o xmlwf xmlwf-xmlwf.o xmlwf-xmlfile.o xmlwf-codepage.o xmlwf-unixfilemap.o  -L/tmp/install/centos64/lib ../lib/.libs/libexpat.a
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+Making all in doc
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5'
+make[1]: Leaving directory '/tmp/build/centos64/expat-2.2.5'
+if test -z 'strip'; then \
+  make  INSTALL_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s" \
+    install_sh_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s" INSTALL_STRIP_FLAG=-s \
+      install; \
+else \
+  make  INSTALL_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s" \
+    install_sh_PROGRAM="/bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s" INSTALL_STRIP_FLAG=-s \
+    "INSTALL_PROGRAM_ENV=STRIPPROG='strip'" install; \
+fi
+make[1]: Entering directory '/tmp/build/centos64/expat-2.2.5'
+Making install in lib
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/lib'
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/lib'
+ /bin/mkdir -p '/tmp/install/centos64/lib'
+ /bin/sh ../libtool   --mode=install /usr/bin/install -c -s  libexpat.la '/tmp/install/centos64/lib'
+libtool: install: /usr/bin/install -c .libs/libexpat.lai /tmp/install/centos64/lib/libexpat.la
+libtool: install: /usr/bin/install -c .libs/libexpat.a /tmp/install/centos64/lib/libexpat.a
+libtool: install: strip --strip-debug /tmp/install/centos64/lib/libexpat.a
+libtool: install: chmod 644 /tmp/install/centos64/lib/libexpat.a
+libtool: install: ranlib /tmp/install/centos64/lib/libexpat.a
+libtool: finish: PATH="/opt/texlive/bin/x86_64-linux:/opt/xbb/bin:/opt/texlive/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin" ldconfig -n /tmp/install/centos64/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /tmp/install/centos64/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+ /bin/mkdir -p '/tmp/install/centos64/share/doc/expat'
+ /usr/bin/install -c -m 644 /Host/Work/riscv-none-gcc/expat-2.2.5/lib/../AUTHORS /Host/Work/riscv-none-gcc/expat-2.2.5/lib/../Changes '/tmp/install/centos64/share/doc/expat'
+ /bin/mkdir -p '/tmp/install/centos64/include'
+ /usr/bin/install -c -m 644 ../expat_config.h /Host/Work/riscv-none-gcc/expat-2.2.5/lib/expat.h /Host/Work/riscv-none-gcc/expat-2.2.5/lib/expat_external.h '/tmp/install/centos64/include'
+make  install-data-hook
+make[4]: Entering directory '/tmp/build/centos64/expat-2.2.5/lib'
+cd "/tmp/install/centos64/share/doc/expat" && mv -f Changes changelog
+make[4]: Leaving directory '/tmp/build/centos64/expat-2.2.5/lib'
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/lib'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/lib'
+Making install in examples
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/examples'
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/examples'
+make[3]: Nothing to be done for 'install-exec-am'.
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/examples'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/examples'
+Making install in tests
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making install in .
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests'
+make[4]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests'
+make[4]: Nothing to be done for 'install-exec-am'.
+make[4]: Nothing to be done for 'install-data-am'.
+make[4]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests'
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making install in benchmark
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+make[4]: Entering directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+make[4]: Nothing to be done for 'install-exec-am'.
+make[4]: Nothing to be done for 'install-data-am'.
+make[4]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests/benchmark'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/tests'
+Making install in xmlwf
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+ /bin/mkdir -p '/tmp/install/centos64/bin'
+ STRIPPROG='strip' /bin/sh ../libtool   --mode=install /bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s xmlwf '/tmp/install/centos64/bin'
+libtool: install: /bin/sh /Host/Work/riscv-none-gcc/expat-2.2.5/conftools/install-sh -c -s xmlwf /tmp/install/centos64/bin/xmlwf
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/xmlwf'
+Making install in doc
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[3]: Nothing to be done for 'install-exec-am'.
+ /bin/mkdir -p '/tmp/install/centos64/share/man/man1'
+ /usr/bin/install -c -m 644 /Host/Work/riscv-none-gcc/expat-2.2.5/doc/xmlwf.1 '/tmp/install/centos64/share/man/man1'
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5/doc'
+make[2]: Entering directory '/tmp/build/centos64/expat-2.2.5'
+make[3]: Entering directory '/tmp/build/centos64/expat-2.2.5'
+make[3]: Nothing to be done for 'install-exec-am'.
+ /bin/mkdir -p '/tmp/install/centos64/lib/pkgconfig'
+ /usr/bin/install -c -m 644 expat.pc '/tmp/install/centos64/lib/pkgconfig'
+make[3]: Leaving directory '/tmp/build/centos64/expat-2.2.5'
+make[2]: Leaving directory '/tmp/build/centos64/expat-2.2.5'
+make[1]: Leaving directory '/tmp/build/centos64/expat-2.2.5'

@@ -15,7 +15,7 @@
 typedef size_t regaddress;
 typedef uint64_t regdata;
 
-class RegisterFile: public Updatable{
+class RegisterFile: public DrivenObject{
 public:
 	/*!
 	 * \brief Initializes register file
