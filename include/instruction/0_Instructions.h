@@ -30,8 +30,6 @@ public:
 	virtual ALUSrc_t getALUSrc() = 0;
 
 	virtual Instruction* clone(inscode code) = 0;
-
-protected:
 	virtual std::string getName() = 0;
 };
 
