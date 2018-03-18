@@ -7,7 +7,7 @@
 
 #ifndef INCLUDE_INSTRUCTION_SINSTRUCTIONS_H_
 #define INCLUDE_INSTRUCTION_SINSTRUCTIONS_H_
-#include <instruction/Instructions.h>
+#include "instruction/0_Instructions.h"
 
 /*!
  * \brief Super class for all S instructions.
@@ -16,7 +16,11 @@
 class SInstruction: public Instruction{
 public:
 	std::string asString();
+	regdata getImmediate();
+	regaddress getRS1();
+	regaddress getRS2();
 
+	ALUSrc_t getALUSrc();
 protected:
 	void parseFields(inscode code);
 	struct Fields{

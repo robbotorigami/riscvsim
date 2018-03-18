@@ -7,15 +7,14 @@
 
 #ifndef INCLUDE_CPUCORE_REGISTERFILE_H_
 #define INCLUDE_CPUCORE_REGISTERFILE_H_
-#include "cpucore/Signals.h"
 #include <vector>
 #include <cstdint>
 #include <cstdlib>
+#include "cpucore/Signals.h"
+#include "cpucore/cputypes.h"
 
-typedef size_t regaddress;
-typedef uint64_t regdata;
 
-class RegisterFile: public DrivenObject{
+class RegisterFile: public DrivenObject, public ClockableObject{
 public:
 	/*!
 	 * \brief Initializes register file
@@ -37,10 +36,17 @@ public:
 	Signal<bool>&		regWrite
 	);
 
+	~RegisterFile();
+
 	/*!
 	 * \brief Computes the output signal from the given inputs
 	 */
 	void computeSignals();
+
+	/*!
+	 * \brief Handles clock signals
+	 */
+	void clock(ClockEdge edge);
 
 private:
 	//! Read Register 1 input

@@ -42,6 +42,25 @@ std::string BInstruction::asString(){
 	return ss.str();
 }
 
+regdata BInstruction::getImmediate(){
+	//Sign extend the immediate to 16 bit, then let c sign extend when promoting to 32/64
+	int16_t immed = ((uint16_t)fields.immed << 3);
+	immed >>= 3;
+	return immed;
+}
+
+regaddress BInstruction::getRS1(){
+	return fields.rs1;
+}
+
+regaddress BInstruction::getRS2(){
+	return fields.rs2;
+}
+
+ALUSrc_t BInstruction::getALUSrc(){
+	return REGISTER;
+}
+
 INSTRUCTION_BOILERPLATE(BEQ)
 INSTRUCTION_BOILERPLATE(BNE)
 INSTRUCTION_BOILERPLATE(BLT)
@@ -55,6 +74,13 @@ MATCHES_ON(BLT, 	fields.funct3 == 0b100 && fields.opcode == 0b1100011)
 MATCHES_ON(BGE, 	fields.funct3 == 0b101 && fields.opcode == 0b1100011)
 MATCHES_ON(BLTU, 	fields.funct3 == 0b110 && fields.opcode == 0b1100011)
 MATCHES_ON(BGEU, 	fields.funct3 == 0b111 && fields.opcode == 0b1100011)
+//All B opcodes, only the zero value matters
+ALU_OPERATION(BEQ, 	0, 	arg1 == arg2)
+ALU_OPERATION(BNE,	0, 	arg1 != arg2)
+ALU_OPERATION(BLT, 	0, 	arg1 <  arg2)
+ALU_OPERATION(BGE, 	0, 	arg1 >= arg2)
+ALU_OPERATION(BLTU,	0,	(uint64_t)arg1 <  (uint64_t)arg2)
+ALU_OPERATION(BGEU, 0,  (uint64_t)arg1 >= (uint64_t)arg2)
 
 
 

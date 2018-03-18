@@ -1,16 +1,44 @@
 #ifndef GENERATED_TESTCODES_H
 #define GENERATED_TESTCODES_H
 
-inscode icodes[] = {0x00ee8ce7,0x03c18203,0x060f1a03,0x00b9a183,0x0231c683,0x023b5403,0x04f0e803,0x02c23183,0x00f70413,0x012a2a13,0x00363093,0x00fac893,0x0124eb93,0x004f7e93,0x011a1c93,0x00fcd393,0x40795493};
-string iinstructions[] ={"JALR x25, x29, 14","LB x4, 60(x3)","LH x20, 96(x30)","LW x3, 11(x19)","LBU x13, 35(x3)","LHU x8, 35(x22)","LWU x16, 79(x1)","LD x3, 44(x4)","ADDI x8, x14, 15","SLTI x20, x20, 18","SLTIU x1, x12, 3","XORI x17, x21, 15","ORI x23, x9, 18","ANDI x29, x30, 4","SLLI x25, x20, 17","SRLI x7, x25, 15","SRAI x9, x18, 7"};
-inscode rcodes[] = {0x01f681b3,0x40dc0a33,0x010b1033,0x01e92cb3,0x01bc3c33,0x013ac633,0x00d15c33,0x4199dd33,0x009d66b3,0x0017f133,0x01c608bb,0x41410cbb,0x00209b3b,0x01e7dcbb,0x412d5b3b};
-string rinstructions[] ={"ADD x3, x13, x31","SUB x20, x24, x13","SLL x0, x22, x16","SLT x25, x18, x30","SLTU x24, x24, x27","XOR x12, x21, x19","SRL x24, x2, x13","SRA x26, x19, x25","OR x13, x26, x9","AND x2, x15, x1","ADDW x17, x12, x28","SUBW x25, x2, x20","SLLW x22, x1, x2","SRLW x25, x15, x30","SRAW x22, x26, x18"};
-inscode bcodes[] = {0x00938063,0xfe279ee3,0xff50cce3,0xff01dae3,0xfffe68e3,0xff44f6e3};
-string binstructions[] ={"BEQ x7, x9, 0","BNE x15, x2, -4","BLT x1, x21, -8","BGE x3, x16, -12","BLTU x28, x31, -16","BGEU x9, x20, -20"};
-inscode jcodes[] = {0x30f0136f};
-string jinstructions[] ={"JAL x6, 6926"};
-inscode scodes[] = {0x019585a3,0x04fc16a3,0x02d126a3,0x062b3023};
-string sinstructions[] ={"SB x25, 11(x11)","SH x15, 77(x24)","SW x13, 45(x2)","SD x2, 96(x22)"};
-inscode ucodes[] = {0x01dead37,0x01ec6c17};
-string uinstructions[] ={"LUI x26, 7658","AUIPC x24, 7878"};
+#include "cpucore/cputypes.h"
+#include <string>
+
+using namespace std;
+static inscode icodes[] = {0x00e00167,0x00e98f03,0x02009a03,0x044aa683,0x04efc583,0x0056d783,0x05656183,0x034dbd03,0x00580513,0x003e2713,0x000d3813,0x003f4993,0x00f96f93,0x0116fb13,0x011f9593,0x0076d993,0x414ad113};
+static string iinstructions[] ={"JALR x2, x0, 14","LB x30, 14(x19)","LH x20, 32(x1)","LW x13, 68(x21)","LBU x11, 78(x31)","LHU x15, 5(x13)","LWU x3, 86(x10)","LD x26, 52(x27)","ADDI x10, x16, 5","SLTI x14, x28, 3","SLTIU x16, x26, 0","XORI x19, x30, 3","ORI x31, x18, 15","ANDI x22, x13, 17","SLLI x11, x31, 17","SRLI x19, x13, 7","SRAI x2, x21, 20"};
+static regdata iimmeds[] = {14,14,32,68,78,5,86,52,5,3,0,3,15,17,17,7,20};
+static regaddress irs1s[] = {0,19,1,21,31,13,10,27,16,28,26,30,18,13,31,13,21};
+static regaddress irs2s[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static regaddress irds[] = {2,30,20,13,11,15,3,26,10,14,16,19,31,22,11,19,2};
+static inscode rcodes[] = {0x00368eb3,0x40060933,0x01881eb3,0x0053a133,0x00afbb33,0x01c6ccb3,0x00a555b3};
+static string rinstructions[] ={"ADD x29, x13, x3","SUB x18, x12, x0","SLL x29, x16, x24","SLT x2, x7, x5","SLTU x22, x31, x10","XOR x25, x13, x28","SRL x11, x10, x10"};
+static regdata rimmeds[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static regaddress rrs1s[] = {13,12,16,7,31,13,10};
+static regaddress rrs2s[] = {3,0,24,5,10,28,10};
+static regaddress rrds[] = {29,18,29,2,22,25,11};
+static inscode bcodes[] = {0x009d8063,0xff309ee3,0xfe734ce3,0xffd3dae3,0xfeeee8e3,0xff51f6e3};
+static string binstructions[] ={"BEQ x27, x9, 0","BNE x1, x19, -4","BLT x6, x7, -8","BGE x7, x29, -12","BLTU x29, x14, -16","BGEU x3, x21, -20"};
+static regdata bimmeds[] = {0,-4,-8,-12,-16,-20};
+static regaddress brs1s[] = {27,1,6,7,29,3,30};
+static regaddress brs2s[] = {9,19,7,29,14,21,24};
+static regaddress brds[] = {0,0,0,0,0,0,0};
+static inscode jcodes[] = {0x57e0056f};
+static string jinstructions[] ={"JAL x10, 1406"};
+static regdata jimmeds[] = {1406};
+static regaddress jrs1s[] = {0,0,0,0,0,0,0};
+static regaddress jrs2s[] = {0,0,0,0,0,0,0};
+static regaddress jrds[] = {10,29,15,22,25,0,9};
+static inscode scodes[] = {0x075c00a3,0x019919a3,0x020baba3,0x047eb623};
+static string sinstructions[] ={"SB x21, 97(x24)","SH x25, 19(x18)","SW x0, 55(x23)","SD x7, 76(x29)"};
+static regdata simmeds[] = {97,19,55,76};
+static regaddress srs1s[] = {24,18,23,29,21,17,2};
+static regaddress srs2s[] = {21,25,0,7,8,2,5};
+static regaddress srds[] = {0,0,0,0,0,0,0};
+static inscode ucodes[] = {0x0173abb7,0x0113cc17};
+static string uinstructions[] ={"LUI x23, 5946","AUIPC x24, 4412"};
+static regdata uimmeds[] = {5946,4412};
+static regaddress urs1s[] = {0,0,0,0,0,0,0};
+static regaddress urs2s[] = {0,0,0,0,0,0,0};
+static regaddress urds[] = {23,24,14,29,27,5,29};
 #endif

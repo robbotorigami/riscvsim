@@ -35,9 +35,30 @@ std::string JInstruction::asString(){
 	return ss.str();
 }
 
+regdata JInstruction::getImmediate(){
+	//Sign extend the immediate to 32 bit, then let c sign extend when promoting to 32/64
+	int32_t immed = ((uint32_t)fields.immed << 11);
+	immed >>= 11;
+	return immed;
+}
+
+regaddress JInstruction::getRS1(){
+	return 0;
+}
+
+regaddress JInstruction::getRS2(){
+	return 0;
+}
+
+ALUSrc_t JInstruction::getALUSrc(){
+	return IMMEDIATE;
+}
+
 INSTRUCTION_BOILERPLATE(JAL)
 
 MATCHES_ON(JAL, 	fields.opcode == 0b1101111)
 
+//ALU Operation is basically irrelevant, always branch
+ALU_OPERATION(JAL, 0, true);
 
 

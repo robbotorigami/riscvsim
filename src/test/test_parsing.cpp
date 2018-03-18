@@ -4,12 +4,10 @@
  *  Created on: Mar 3, 2018
  *      Author: cyborg9
  */
+#include <instruction/0_Instructions.h>
 #include <array>
-#include <instruction/Instructions.h>
 #include "test/catch.hpp"
-
-using namespace std;
-
+#include "instruction/InstructionSignals.h"
 #include "test/gen_testcodes.h"
 
 TEST_CASE("Parse R Instructions", "[parsing][r]"){
@@ -17,6 +15,7 @@ TEST_CASE("Parse R Instructions", "[parsing][r]"){
 		Instruction* ins = InstructionFactory::parseInstruction(rcodes[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == rinstructions[i]);
+		delete ins;
 	}
 }
 
@@ -27,6 +26,7 @@ TEST_CASE("Parse I Instructions", "[parsing][i]"){
 		CAPTURE(iinstructions[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == iinstructions[i]);
+		delete ins;
 	}
 }
 
@@ -38,6 +38,7 @@ TEST_CASE("Parse B Instructions", "[parsing][b]"){
 		CAPTURE(binstructions[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == binstructions[i]);
+		delete ins;
 	}
 }
 
@@ -48,6 +49,7 @@ TEST_CASE("Parse J Instructions", "[parsing][j]"){
 		CAPTURE(jinstructions[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == jinstructions[i]);
+		delete ins;
 	}
 }
 
@@ -58,6 +60,7 @@ TEST_CASE("Parse S Instructions", "[parsing][s]"){
 		CAPTURE(sinstructions[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == sinstructions[i]);
+		delete ins;
 	}
 }
 
@@ -68,5 +71,6 @@ TEST_CASE("Parse U Instructions", "[parsing][u]"){
 		CAPTURE(uinstructions[i]);
 		REQUIRE(ins != nullptr);
 		REQUIRE(ins->asString() == uinstructions[i]);
+		delete ins;
 	}
 }

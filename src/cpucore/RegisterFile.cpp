@@ -26,19 +26,28 @@ RegisterFile::RegisterFile(
 {
 	readRegister1.registerDriven(this);
 	readRegister2.registerDriven(this);
-	writeRegister.registerDriven(this);
-	writeData.registerDriven(this);
-	regWrite.registerDriven(this);
+	//writeRegister.registerDriven(this);
+	//writeData.registerDriven(this);
+	//regWrite.registerDriven(this);
 
 	registers.resize(32, 0);
 }
 
+RegisterFile::~RegisterFile(){
+	readRegister1.unregisterDriven(this);
+	readRegister2.unregisterDriven(this);
+}
+
 void RegisterFile::computeSignals(){
-	if(regWrite.getData()){
-		registers[writeRegister.getData()] = writeData.getData();
+	readData1 = registers[static_cast<regaddress>(readRegister1)];
+	readData2 = registers[static_cast<regaddress>(readRegister2)];
+}
+
+void RegisterFile::clock(ClockEdge edge){
+	if(regWrite && writeRegister != 0){
+		registers[static_cast<regaddress>(writeRegister)] = writeData;
 	}
-	readData1.setData(registers[readRegister1.getData()]);
-	readData2.setData(registers[readRegister2.getData()]);
+	computeSignals();
 }
 
 

@@ -23,16 +23,28 @@ TEST_CASE("Test That RegisterFile works correctly", "[registerfile][signals]"){
 			readData1, readData2, regWrite);
 
 	SECTION("Test simple write and read"){
-		writeRegister.setData(2);
-		writeData.setData(0xAA);
-		regWrite.setData(true);
-		readRegister1.setData(2);
-		readRegister2.setData(4);
-		REQUIRE(readData1.getData() == 0xAA);
-		writeRegister.setData(4);
-		writeData.setData(0xBB);
-		REQUIRE(readData1.getData() == 0xAA);
-		REQUIRE(readData2.getData() == 0xBB);
+		writeRegister = 2;
+		writeData = 0xAA;
+		regWrite = true;
+		rf.clock(RISING);
+		readRegister1 = 2;
+		readRegister2 = 4;
+		REQUIRE(readData1 == 0xAA);
+		writeRegister = 4;
+		writeData = 0xBB;
+		rf.clock(RISING);
+		REQUIRE(readData1 == 0xAA);
+		REQUIRE(readData2 == 0xBB);
+	}
+
+	SECTION("Test that reg zero always returns 0"){
+		readRegister1 = 0;
+		REQUIRE(readData1 == 0x00);
+		writeRegister = 0;
+		writeData = 0xAA;
+		regWrite = true;
+		rf.clock(RISING);
+		REQUIRE(readData1 == 0x00);
 	}
 }
 

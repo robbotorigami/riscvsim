@@ -5,9 +5,9 @@
  *      Author: cyborg9
  */
 
-#ifndef INCLUDE_INSTRUCTION_RINSTRUCTIONS_H_
-#define INCLUDE_INSTRUCTION_RINSTRUCTIONS_H_
-#include <instruction/Instructions.h>
+#ifndef INCLUDE_INSTRUCTION_IINSTRUCTIONS_H_
+#define INCLUDE_INSTRUCTION_IINSTRUCTIONS_H_
+#include "instruction/0_Instructions.h"
 
 /*!
  * \brief Super class for all I instructions.
@@ -16,7 +16,11 @@
 class IInstruction: public Instruction{
 public:
 	std::string asString();
+	regdata getImmediate();
+	regaddress getRS1();
+	regaddress getRS2();
 
+	ALUSrc_t getALUSrc();
 protected:
 	void parseFields(inscode code);
 	struct Fields{

@@ -33,6 +33,24 @@ std::string RInstruction::asString(){
 	return ss.str();
 }
 
+regdata RInstruction::getImmediate(){
+	//No immediate in the opcode
+	return 0;
+}
+
+regaddress RInstruction::getRS1(){
+	return fields.rs1;
+}
+
+regaddress RInstruction::getRS2(){
+	return fields.rs2;
+}
+
+ALUSrc_t RInstruction::getALUSrc(){
+	return REGISTER;
+}
+
+
 INSTRUCTION_BOILERPLATE(ADD)
 INSTRUCTION_BOILERPLATE(SUB)
 INSTRUCTION_BOILERPLATE(SLL)
@@ -65,4 +83,22 @@ MATCHES_ON(SLLW,	fields.funct7 == 0b0000000 && fields.funct3 == 0b001 && fields.
 MATCHES_ON(SRLW,	fields.funct7 == 0b0000000 && fields.funct3 == 0b101 && fields.opcode == 0b0111011)
 MATCHES_ON(SRAW,	fields.funct7 == 0b0100000 && fields.funct3 == 0b101 && fields.opcode == 0b0111011)
 
-
+//Perform relavent operation for AL ops, never branch
+ALU_OPERATION(ADD, 			arg1+arg2, 		false);
+ALU_OPERATION(SUB, 			arg1-arg2, 		false);
+ALU_OPERATION(SLT, 			arg1<arg2, 		false);
+ALU_OPERATION(SLTU, 		(uint64_t)arg1<(uint64_t)arg2, 		false);
+ALU_OPERATION(XOR, 			arg1^arg2, 		false);
+ALU_OPERATION(OR, 			arg1|arg2, 		false);
+ALU_OPERATION(AND, 			arg1&arg2, 		false);
+ALU_OPERATION(SLL,	 		arg1<<arg2, 		false);
+//Bit shifting magic to ensure logical right shift
+ALU_OPERATION(SRL, 			(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRA, 			arg1>>arg2, 		false);
+//Word operators just need to be masked
+ALU_OPERATION(ADDW, 		(uint32_t)arg1+(uint32_t)arg2, 		false);
+ALU_OPERATION(SUBW, 		(uint32_t)arg1-(uint32_t)arg2, 		false);
+//TODO: Bit shifting magic to make this work properly...
+ALU_OPERATION(SLLW,	 			arg1<<arg2, 		false);
+ALU_OPERATION(SRLW, 			(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRAW, 			arg1>>arg2, 		false);

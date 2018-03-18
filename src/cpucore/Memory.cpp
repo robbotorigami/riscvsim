@@ -36,10 +36,24 @@ void Memory::buildFromImage(std::string filename)
 	textAddr = 0x00000000;
 	dataAddr = textAddr + text;
 	stackAddr = dataAddr + data + stack;
-	this->data.resize(stackAddr); //Allocate enough memory
+	this->data.resize(stackAddr+1); //Allocate enough memory
 	fs.read(reinterpret_cast<char *>(&this->data[textAddr]), text+data+stack);
 }
 
+InstructionMemory::InstructionMemory(Memory& mem, Signal<pcval_t>& address, Signal<inscode>& instruction)
+:mem(mem), address(address), instruction(instruction)
+{
+	address.registerDriven(this);
+}
+
+InstructionMemory::~InstructionMemory(){
+	address.unregisterDriven(this);
+}
+
+//! Reads the value from memory and return the value at the address
+void InstructionMemory::computeSignals(){
+	instruction = mem.read<inscode>(address);
+}
 
 
 

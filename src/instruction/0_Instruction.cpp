@@ -3,7 +3,7 @@
  * some stupid stuff with global constructor order
  */
 
-#include <instruction/Instructions.h>
+#include <instruction/0_Instructions.h>
 #include "util/easylogging++.h"
 #include <iostream>
 #include <algorithm>

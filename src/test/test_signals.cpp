@@ -7,9 +7,10 @@
 
 #include "test/catch.hpp"
 #include "cpucore/Signals.h"
+#include "instruction/InstructionSignals.h"
+#include "test/gen_testcodes.h"
 
 #include <stdint.h>
-
 
 TEST_CASE("Test that the mux functions correctly", "[signals][mux]"){
 	Signal<bool> control;
@@ -26,4 +27,242 @@ TEST_CASE("Test that the mux functions correctly", "[signals][mux]"){
 	}
 }
 
+TEST_CASE("Test that the register functions correctly", "[signals][mux]"){
+	Signal<uint32_t> sigin, sigout;
+	Register<uint32_t> r(sigin, sigout);
+	sigin = 202;
+	r.clock(RISING);
+	REQUIRE(sigout == 202);
+	sigin = 404;
+	REQUIRE(sigout == 202);
+	r.clock(RISING);
+	REQUIRE(sigout == 404);
+}
+
+TEST_CASE("Test that the adder functions correctly", "[signals][adder]"){
+	Signal<uint32_t> input1, input2, output;
+	Adder<uint32_t> a(input1, input2, output);
+	for(int i = 0; i < 100; i++){
+		for(int j = 0; j < 100; j++){
+			input1 = i;
+			input2 = j;
+			REQUIRE(output == i+j);
+		}
+	}
+}
+
+TEST_CASE("Test that the coupler functions correctly", "[signals][coupler]"){
+	Signal<uint32_t> in, out;
+	Coupler<uint32_t> c(in, out);
+	for(int i = 0; i < 100; i++){
+		in = i;
+		REQUIRE(out == i);
+	}
+}
+
+TEST_CASE("Test that the shifter functions correctly", "[signals][shifter]"){
+	Signal<uint32_t> in, out;
+	Shifter<uint32_t,1> s(in, out);
+	for(int i = 0; i < 100; i++){
+		in = i;
+		REQUIRE(out == i <<1);
+	}
+}
+
+
+TEST_CASE("Test that the instruction parser functions correctly", "[signals][parsing]"){
+	std::vector<Instruction*> instructions;
+	Signal<inscode> inscodeIn;
+	Signal<Instruction*> instructionOut;
+	InstructionParser ip(inscodeIn, instructionOut);
+
+	SECTION("Parse R Instructions"){
+		for(size_t i = 0; i < sizeof(rcodes)/sizeof(rcodes[0]); i++){
+			inscodeIn = rcodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == rinstructions[i]);
+		}
+	}
+	SECTION("Parse I Instructions"){
+		for(size_t i = 0; i < sizeof(icodes)/sizeof(icodes[0]); i++){
+			inscodeIn = icodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == iinstructions[i]);
+		}
+	}
+	SECTION("Parse B Instructions"){
+		for(size_t i = 0; i < sizeof(bcodes)/sizeof(bcodes[0]); i++){
+			inscodeIn = bcodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == binstructions[i]);
+		}
+	}
+	SECTION("Parse J Instructions"){
+		for(size_t i = 0; i < sizeof(jcodes)/sizeof(jcodes[0]); i++){
+			inscodeIn = jcodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == jinstructions[i]);
+		}
+	}
+	SECTION("Parse S Instructions"){
+		for(size_t i = 0; i < sizeof(scodes)/sizeof(scodes[0]); i++){
+			inscodeIn = scodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == sinstructions[i]);
+		}
+	}
+	SECTION("Parse U Instructions"){
+		for(size_t i = 0; i < sizeof(ucodes)/sizeof(ucodes[0]); i++){
+			inscodeIn = ucodes[i];
+			Instruction* ins = instructionOut;
+			REQUIRE(ins != nullptr);
+			instructions.push_back(ins);
+			REQUIRE(ins->asString() == uinstructions[i]);
+		}
+	}
+
+	for(auto i : instructions){
+		delete i;
+	}
+}
+
+TEST_CASE("Test that the immediate parsing functions correctly", "[signals][parsing]"){
+	Signal<Instruction*> instructionIn;
+	Signal<regdata> immedOut;
+	ImmediateGenerator immedGen(instructionIn, immedOut);
+
+	SECTION("Parse R Instructions"){
+		for(size_t i = 0; i < sizeof(rcodes)/sizeof(rcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(rcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == rimmeds[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse I Instructions"){
+		for(size_t i = 0; i < sizeof(icodes)/sizeof(icodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(icodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == iimmeds[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse B Instructions"){
+		for(size_t i = 0; i < sizeof(bcodes)/sizeof(bcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(bcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == bimmeds[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse J Instructions"){
+		for(size_t i = 0; i < sizeof(jcodes)/sizeof(jcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(jcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == jimmeds[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse S Instructions"){
+		for(size_t i = 0; i < sizeof(scodes)/sizeof(scodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(scodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == simmeds[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse U Instructions"){
+		for(size_t i = 0; i < sizeof(ucodes)/sizeof(ucodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(ucodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(immedOut == uimmeds[i]);
+			delete ins;
+		}
+	}
+
+}
+
+TEST_CASE("Test that the read register parsing functions correctly", "[signals][parsing]"){
+	Signal<Instruction*> instructionIn;
+	Signal<regaddress> readReg1, readReg2;
+	ReadRegisterGenerator rrgen(instructionIn, readReg1, readReg2);
+
+	SECTION("Parse R Instructions"){
+		for(size_t i = 0; i < sizeof(rcodes)/sizeof(rcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(rcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == rrs1s[i]);
+			REQUIRE(readReg2 == rrs2s[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse I Instructions"){
+		for(size_t i = 0; i < sizeof(icodes)/sizeof(icodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(icodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == irs1s[i]);
+			REQUIRE(readReg2 == irs2s[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse B Instructions"){
+		for(size_t i = 0; i < sizeof(bcodes)/sizeof(bcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(bcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == brs1s[i]);
+			REQUIRE(readReg2 == brs2s[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse J Instructions"){
+		for(size_t i = 0; i < sizeof(jcodes)/sizeof(jcodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(jcodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == jrs1s[i]);
+			REQUIRE(readReg2 == jrs2s[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse S Instructions"){
+		for(size_t i = 0; i < sizeof(scodes)/sizeof(scodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(scodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == srs1s[i]);
+			REQUIRE(readReg2 == srs2s[i]);
+			delete ins;
+		}
+	}
+	SECTION("Parse U Instructions"){
+		for(size_t i = 0; i < sizeof(ucodes)/sizeof(ucodes[0]); i++){
+			Instruction* ins = InstructionFactory::parseInstruction(ucodes[i]);
+			REQUIRE(ins != nullptr);
+			instructionIn = ins;
+			REQUIRE(readReg1 == urs1s[i]);
+			REQUIRE(readReg2 == urs2s[i]);
+			delete ins;
+		}
+	}
+
+}
 

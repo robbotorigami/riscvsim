@@ -48,6 +48,32 @@ std::string IInstruction::asString(){
 	return ss.str();
 }
 
+regdata IInstruction::getImmediate(){
+	//Sign extend the immediate to 16 bit, then let c sign extend when promoting to 32/64
+	int16_t immed = fields.immed;
+	immed <<= 4;
+	immed >>= 4;
+
+	if(!getName().compare(0, 4, "SLLI") || !getName().compare(0, 4, "SRLI") || !getName().compare(0, 4, "SRAI")){
+		//This is a shift instruction, so mask the bits in the immediate out
+		immed = (immed & 0x03F);
+	}
+	return immed;
+}
+
+regaddress IInstruction::getRS1(){
+	return fields.rs1;
+}
+
+regaddress IInstruction::getRS2(){
+	return 0;
+}
+
+ALUSrc_t IInstruction::getALUSrc(){
+	return IMMEDIATE;
+}
+
+
 INSTRUCTION_BOILERPLATE(JALR);
 INSTRUCTION_BOILERPLATE(LB);
 INSTRUCTION_BOILERPLATE(LH);
@@ -85,4 +111,24 @@ MATCHES_ON(SLLI, 	fields.funct3 == 0b001 && fields.opcode == 0b0010011);
 MATCHES_ON(SRLI, 	!(fields.immed & 0b010000000000) && fields.funct3 == 0b101 && fields.opcode == 0b0010011);
 MATCHES_ON(SRAI, 	 (fields.immed & 0b010000000000) && fields.funct3 == 0b101 && fields.opcode == 0b0010011);
 
-
+//ALU is irrelevant for JALR, but always branch
+ALU_OPERATION(JALR, 		arg1+arg2,		true);
+//Compute address as sum of two args for load, never branch
+ALU_OPERATION(LB, 			arg1+arg2, 		false);
+ALU_OPERATION(LH, 			arg1+arg2, 		false);
+ALU_OPERATION(LW, 			arg1+arg2, 		false);
+ALU_OPERATION(LBU, 			arg1+arg2, 		false);
+ALU_OPERATION(LHU, 			arg1+arg2, 		false);
+ALU_OPERATION(LWU, 			arg1+arg2, 		false);
+ALU_OPERATION(LD, 			arg1+arg2, 		false);
+//Perform relavent operation for AL ops, never branch
+ALU_OPERATION(ADDI, 		arg1+arg2, 		false);
+ALU_OPERATION(SLTI, 		arg1<arg2, 		false);
+ALU_OPERATION(SLTIU, 		(uint64_t)arg1<(uint64_t)arg2, 		false);
+ALU_OPERATION(XORI, 		arg1^arg2, 		false);
+ALU_OPERATION(ORI, 			arg1|arg2, 		false);
+ALU_OPERATION(ANDI, 		arg1&arg2, 		false);
+ALU_OPERATION(SLLI, 		arg1<<arg2, 		false);
+//Bit shifting magic to ensure logical right shift
+ALU_OPERATION(SRLI, 		(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRAI, 		arg1>>arg2, 		false);

@@ -8,7 +8,9 @@
 #ifndef INCLUDE_CPUCORE_SIGNALS_H_
 #define INCLUDE_CPUCORE_SIGNALS_H_
 #include <cstdlib>
+#include <cassert>
 #include <vector>
+#include <algorithm>
 
 
 /*!
@@ -18,6 +20,19 @@ class DrivenObject{
 public:
 	virtual ~DrivenObject(){}
 	virtual void computeSignals() = 0;
+};
+
+/*!
+ * \brief abstract class to implement objects which should only update on a clock cycle
+ */
+enum ClockEdge{
+	RISING,
+	FALLING,
+};
+class ClockableObject{
+public:
+	virtual ~ClockableObject(){}
+	virtual void clock(ClockEdge edge) = 0;
 };
 
 /*!
@@ -42,6 +57,17 @@ public:
 	}
 
 	/*!
+	 * \brief Remove an object from the update list
+	 *
+	 * \param updatable the object to be removed
+	 */
+	void unregisterDriven(DrivenObject* driven){
+		auto i = std::find(updatelist.begin(), updatelist.end(), driven);
+		assert(i != updatelist.end());
+		updatelist.erase(i);
+	}
+
+	/*!
 	 * \breif Put data into the signal.
 	 *
 	 * \param data the data to be inserted
@@ -58,20 +84,18 @@ public:
 	 *
 	 * \return the current data in the signal
 	 */
-	typebase getData(){
+	typebase getData() const{
 		return data;
 	}
 
-	/*!
-	 * \brief syntactic sugar for setData
-	 */
-	void operator=(const typebase &in){
-		data = in;
+	Signal& operator=(typebase d){
+		setData(d);
+		return *this;
 	}
 
-	/*!
-	 * \brief syntactic sugar for getData
-	 */
+	operator typebase() const{
+		return getData();
+	}
 
 private:
 	//! The driving node for this signal
@@ -100,6 +124,12 @@ public:
 		control.registerDriven(this);
 	}
 
+	~Mux(){
+		input1.unregisterDriven(this);
+		input2.unregisterDriven(this);
+		control.unregisterDriven(this);
+	}
+
 	void computeSignals(){
 		datatype outputval;
 		outputval = control.getData() ? input2.getData() : input1.getData();
@@ -117,6 +147,110 @@ private:
 	Signal<datatype>& output;
 };
 
+/*!
+ * \brief Simple class to represent a clockable register
+ */
+template <typename datatype>
+class Register: public ClockableObject{
+public:
+	Register(Signal<datatype>& input,
+			Signal<datatype>& output)
+	:input(input),
+	 output(output)
+	{
+	}
 
+	void clock(ClockEdge edge){
+		output = static_cast<datatype>(input);
+	}
+
+private:
+	//! Input to the register
+	Signal<datatype>& input;
+	//! Output of the register
+	Signal<datatype>& output;
+};
+
+/*!
+ * \brief Simple class to implement an adder
+ */
+template <typename datatype>
+class Adder: public DrivenObject{
+public:
+	Adder(Signal<datatype>& input1, Signal<datatype>& input2, Signal<datatype>& output)
+	:input1(input1), input2(input2), output(output)
+	{
+		input1.registerDriven(this);
+		input2.registerDriven(this);
+	}
+
+	~Adder(){
+		input1.unregisterDriven(this);
+		input2.unregisterDriven(this);
+	}
+
+	void computeSignals(){
+		output = static_cast<datatype>(input1) + static_cast<datatype>(input2);
+	}
+
+private:
+	//! First input to the adder
+	Signal<datatype>& input1;
+	//! Second input to the adder
+	Signal<datatype>& input2;
+	//! Output of the adder
+	Signal<datatype>& output;
+};
+
+/*!
+ * \brief Simple class to connect two signals
+ */
+template <typename datatype>
+class Coupler: DrivenObject{
+public:
+	Coupler(Signal<datatype>& input, Signal<datatype>& output)
+	:input(input), output(output){
+		input.registerDriven(this);
+	}
+
+	~Coupler(){
+		input.unregisterDriven(this);
+	}
+
+	void computeSignals(){
+		output = static_cast<datatype>(input);
+	}
+private:
+	//! Input Signal
+	Signal<datatype>& input;
+	//! Output Signal
+	Signal<datatype>& output;
+};
+
+/*!
+ * \brief Simple class to implement a shifter
+ */
+template <typename datatype, size_t shiftbits>
+class Shifter: DrivenObject{
+public:
+	Shifter(Signal<datatype>& input, Signal<datatype>& output)
+	:input(input), output(output)
+	{
+		input.registerDriven(this);
+	}
+
+	~Shifter(){
+		input.unregisterDriven(this);
+	}
+
+	void computeSignals(){
+		output = static_cast<datatype>(input) << shiftbits;
+	}
+private:
+	//! Input Signal
+	Signal<datatype>& input;
+	//! Output Signal
+	Signal<datatype>& output;
+};
 
 #endif /* INCLUDE_CPUCORE_SIGNALS_H_ */

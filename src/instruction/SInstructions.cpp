@@ -34,6 +34,25 @@ std::string SInstruction::asString(){
 	return ss.str();
 }
 
+regdata SInstruction::getImmediate(){
+	//Sign extend the immediate to 16 bit, then let c sign extend when promoting to 32/64
+	int16_t immed = ((uint16_t)fields.immed << 4);
+	immed >>= 4;
+	return immed;
+}
+
+regaddress SInstruction::getRS1(){
+	return fields.rs1;
+}
+
+regaddress SInstruction::getRS2(){
+	return fields.rs2;
+}
+
+ALUSrc_t SInstruction::getALUSrc(){
+	return REGISTER;
+}
+
 INSTRUCTION_BOILERPLATE(SB)
 INSTRUCTION_BOILERPLATE(SH)
 INSTRUCTION_BOILERPLATE(SW)
@@ -43,3 +62,8 @@ MATCHES_ON(SB, 	fields.funct3 == 0b000 && fields.opcode == 0b0100011)
 MATCHES_ON(SH, 	fields.funct3 == 0b001 && fields.opcode == 0b0100011)
 MATCHES_ON(SW, 	fields.funct3 == 0b010 && fields.opcode == 0b0100011)
 MATCHES_ON(SD, 	fields.funct3 == 0b011 && fields.opcode == 0b0100011)
+
+ALU_OPERATION(SB, 	arg1+arg2,	false)
+ALU_OPERATION(SH, 	arg1+arg2,	false)
+ALU_OPERATION(SW, 	arg1+arg2,	false)
+ALU_OPERATION(SD, 	arg1+arg2,	false)
