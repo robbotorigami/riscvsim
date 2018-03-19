@@ -5,9 +5,20 @@
  *      Author: cyborg9
  */
 #include <iostream>
+#include "cpucore/RISCVCpu.h"
 
+using namespace std;
 int main(){
-	std::cout << "Hello World!" << std::endl;
+	Memory mem;
+	mem.buildFromImage("../resource/ins_assembly_test.img");
+	cout << "\n\n\n\n############################## CYCLE #" << 0 << " ############################################" << endl;
+	RISCVCpu cpu(mem);
+
+	for (int cycle = 1; cycle < 300; cycle++){
+		cout << "\n\n\n\n############################## CYCLE #" << cycle << " ############################################" << endl;
+		cpu.cycleSystem();
+	}
+
 	return 0;
 }
 

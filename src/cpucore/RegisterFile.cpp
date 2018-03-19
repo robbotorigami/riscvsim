@@ -6,6 +6,8 @@
  */
 
 #include "cpucore/RegisterFile.h"
+#include <sstream>
+#include "config.h"
 
 RegisterFile::RegisterFile(
 	Signal<regaddress>& readRegister1,
@@ -31,6 +33,7 @@ RegisterFile::RegisterFile(
 	//regWrite.registerDriven(this);
 
 	registers.resize(32, 0);
+	printInfo();
 }
 
 RegisterFile::~RegisterFile(){
@@ -48,7 +51,16 @@ void RegisterFile::clock(ClockEdge edge){
 		registers[static_cast<regaddress>(writeRegister)] = writeData;
 	}
 	computeSignals();
+	printInfo();
 }
 
+void RegisterFile::printInfo(){
+	std::stringstream ss;
+	ss << "Register:   ";
+	for(int i = 0; i < 32; i++){
+		ss << "x" << i << ", " << registers[i] << "     ";
+	}
+	INFORMATION(ss.str());
+}
 
 

@@ -7,6 +7,7 @@
 
 #include "cpucore/Memory.h"
 #include <fstream>
+#include <cassert>
 
 /*!
  * \brief Constructs memory object with the specified sizes for
@@ -29,6 +30,9 @@ Memory::Memory()
 void Memory::buildFromImage(std::string filename)
 {
 	std::ifstream fs(filename, std::ios::binary);
+	if(!fs){
+		return;
+	}
 	uint32_t text, data, stack;
 	fs.read(reinterpret_cast<char *>(&text), sizeof(text));
 	fs.read(reinterpret_cast<char *>(&data), sizeof(data));
@@ -55,5 +59,43 @@ void InstructionMemory::computeSignals(){
 	instruction = mem.read<inscode>(address);
 }
 
+
+DataMemory::DataMemory(Memory& mem, Signal<regdata>& address, Signal<regdata>&writeData,
+			Signal<BitCount_t>& bitcount,
+			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData)
+:mem(mem), address(address), writeData(writeData), bitcount(bitcount),
+ memWrite(memWrite), memRead(memRead), readData(readData)
+{
+
+}
+
+DataMemory::~DataMemory(){
+
+}
+
+void DataMemory::clock(ClockEdge edge){
+	if(memRead){
+		if(bitcount == BIT8){
+			readData = mem.read<uint8_t>(address);
+		}else if(bitcount == BIT16){
+			readData = mem.read<uint16_t>(address);
+		}else if(bitcount == BIT32){
+			readData = mem.read<uint32_t>(address);
+		}else if(bitcount == BIT64){
+			readData = mem.read<uint64_t>(address);
+		}
+	}
+	if(memWrite){
+		if(bitcount == BIT8){
+			mem.write<uint8_t>(address, writeData);
+		}else if(bitcount == BIT16){
+			mem.write<uint16_t>(address, writeData);
+		}else if(bitcount == BIT32){
+			mem.write<uint32_t>(address, writeData);
+		}else if(bitcount == BIT64){
+			mem.write<uint64_t>(address, writeData);
+		}
+	}
+}
 
 

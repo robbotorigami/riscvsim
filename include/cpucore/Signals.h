@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "instruction/IInstructions.h"
+
 
 /*!
  * \brief abstract class that implements the callback interface for a signal
@@ -84,9 +86,7 @@ public:
 	 *
 	 * \return the current data in the signal
 	 */
-	typebase getData() const{
-		return data;
-	}
+	typebase getData() const;
 
 	Signal& operator=(typebase d){
 		setData(d);
@@ -103,6 +103,12 @@ private:
 	//! The data on the signal line
 	typebase data;
 };
+
+template <typename typebase>
+typebase Signal<typebase>::getData() const{
+	return data;
+}
+
 
 /*!
  * \brief Class to implement a simple boolean mux
@@ -251,6 +257,26 @@ private:
 	Signal<datatype>& input;
 	//! Output Signal
 	Signal<datatype>& output;
+};
+
+template <typename from, typename to>
+class Converter: DrivenObject{
+public:
+	Converter(Signal<from>& input, Signal<to>& output)
+	:input(input), output(output)
+	{
+		input.registerDriven(this);
+	}
+	~Converter(){
+		input.unregisterDriven(this);
+	}
+
+	void computeSignals(){
+		output = static_cast<to>(static_cast<from>(input));
+	}
+private:
+	Signal<from>& input;
+	Signal<to>& output;
 };
 
 #endif /* INCLUDE_CPUCORE_SIGNALS_H_ */

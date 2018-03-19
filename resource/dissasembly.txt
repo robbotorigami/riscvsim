@@ -1,0 +1,408 @@
+
+ins_assembly_test:     file format elf64-littleriscv
+
+
+Disassembly of section .crt0:
+
+0000000000000000 <_start>:
+   0:	00100513          	li	a0,1
+   4:	00a00113          	li	sp,10
+   8:	00a08093          	addi	ra,ra,10
+   c:	1a209c63          	bne	ra,sp,1c4 <FAIL>
+  10:	00150513          	addi	a0,a0,1
+  14:	01400193          	li	gp,20
+  18:	002080b3          	add	ra,ra,sp
+  1c:	1a309463          	bne	ra,gp,1c4 <FAIL>
+  20:	00150513          	addi	a0,a0,1
+  24:	0001f1b3          	and	gp,gp,zero
+  28:	18019e63          	bnez	gp,1c4 <FAIL>
+  2c:	00150513          	addi	a0,a0,1
+  30:	00a00193          	li	gp,10
+  34:	00016133          	or	sp,sp,zero
+  38:	18311663          	bne	sp,gp,1c4 <FAIL>
+  3c:	00150513          	addi	a0,a0,1
+  40:	00314133          	xor	sp,sp,gp
+  44:	18011063          	bnez	sp,1c4 <FAIL>
+  48:	00150513          	addi	a0,a0,1
+  4c:	00a00113          	li	sp,10
+  50:	40310133          	sub	sp,sp,gp
+  54:	16011863          	bnez	sp,1c4 <FAIL>
+  58:	00150513          	addi	a0,a0,1
+  5c:	0aa00113          	li	sp,170
+  60:	00010293          	mv	t0,sp
+  64:	00200193          	li	gp,2
+  68:	2a800213          	li	tp,680
+  6c:	00311133          	sll	sp,sp,gp
+  70:	14411a63          	bne	sp,tp,1c4 <FAIL>
+  74:	00150513          	addi	a0,a0,1
+  78:	00315133          	srl	sp,sp,gp
+  7c:	14511463          	bne	sp,t0,1c4 <FAIL>
+  80:	00150513          	addi	a0,a0,1
+  84:	00100113          	li	sp,1
+  88:	0051a333          	slt	t1,gp,t0
+  8c:	12231c63          	bne	t1,sp,1c4 <FAIL>
+  90:	00522333          	slt	t1,tp,t0
+  94:	12031863          	bnez	t1,1c4 <FAIL>
+  98:	fff00193          	li	gp,-1
+  9c:	0001a333          	sltz	t1,gp
+  a0:	12231263          	bne	t1,sp,1c4 <FAIL>
+  a4:	00150513          	addi	a0,a0,1
+  a8:	0001b333          	sltu	t1,gp,zero
+  ac:	10031c63          	bnez	t1,1c4 <FAIL>
+  b0:	00150513          	addi	a0,a0,1
+  b4:	00027213          	andi	tp,tp,0
+  b8:	10021663          	bnez	tp,1c4 <FAIL>
+  bc:	00150513          	addi	a0,a0,1
+  c0:	05500193          	li	gp,85
+  c4:	05000113          	li	sp,80
+  c8:	00010213          	mv	tp,sp
+  cc:	00516113          	ori	sp,sp,5
+  d0:	0e311a63          	bne	sp,gp,1c4 <FAIL>
+  d4:	00150513          	addi	a0,a0,1
+  d8:	0051c193          	xori	gp,gp,5
+  dc:	0e419463          	bne	gp,tp,1c4 <FAIL>
+  e0:	00150513          	addi	a0,a0,1
+  e4:	00100213          	li	tp,1
+  e8:	0601a393          	slti	t2,gp,96
+  ec:	0c439c63          	bne	t2,tp,1c4 <FAIL>
+  f0:	0451a393          	slti	t2,gp,69
+  f4:	0c039863          	bnez	t2,1c4 <FAIL>
+  f8:	fff1a393          	slti	t2,gp,-1
+  fc:	0c039463          	bnez	t2,1c4 <FAIL>
+ 100:	00150513          	addi	a0,a0,1
+ 104:	fff1b393          	sltiu	t2,gp,-1
+ 108:	0a439e63          	bne	t2,tp,1c4 <FAIL>
+ 10c:	00150513          	addi	a0,a0,1
+ 110:	00500193          	li	gp,5
+ 114:	00018293          	mv	t0,gp
+ 118:	00328463          	beq	t0,gp,120 <BEQ1>
+ 11c:	0a329463          	bne	t0,gp,1c4 <FAIL>
+
+0000000000000120 <BEQ1>:
+ 120:	00150513          	addi	a0,a0,1
+ 124:	00429463          	bne	t0,tp,12c <BNE1>
+ 128:	08428e63          	beq	t0,tp,1c4 <FAIL>
+
+000000000000012c <BNE1>:
+ 12c:	00150513          	addi	a0,a0,1
+ 130:	00324663          	blt	tp,gp,13c <BLT1>
+ 134:	0841c863          	blt	gp,tp,1c4 <FAIL>
+ 138:	08320663          	beq	tp,gp,1c4 <FAIL>
+
+000000000000013c <BLT1>:
+ 13c:	00150513          	addi	a0,a0,1
+ 140:	00324663          	blt	tp,gp,14c <BGT1>
+ 144:	0841c063          	blt	gp,tp,1c4 <FAIL>
+ 148:	06418e63          	beq	gp,tp,1c4 <FAIL>
+
+000000000000014c <BGT1>:
+ 14c:	00150513          	addi	a0,a0,1
+ 150:	fff00093          	li	ra,-1
+ 154:	0012e663          	bltu	t0,ra,160 <BLTU1>
+ 158:	0650c663          	blt	ra,t0,1c4 <FAIL>
+ 15c:	06128463          	beq	t0,ra,1c4 <FAIL>
+
+0000000000000160 <BLTU1>:
+ 160:	00150513          	addi	a0,a0,1
+ 164:	0012d463          	ble	ra,t0,16c <BGE1>
+ 168:	0412ce63          	blt	t0,ra,1c4 <FAIL>
+
+000000000000016c <BGE1>:
+ 16c:	00150513          	addi	a0,a0,1
+ 170:	0050f463          	bleu	t0,ra,178 <BGEU1>
+ 174:	0450c863          	blt	ra,t0,1c4 <FAIL>
+
+0000000000000178 <BGEU1>:
+ 178:	00150513          	addi	a0,a0,1
+ 17c:	0aa00193          	li	gp,170
+ 180:	00018293          	mv	t0,gp
+ 184:	2a800213          	li	tp,680
+ 188:	00219193          	slli	gp,gp,0x2
+ 18c:	02419c63          	bne	gp,tp,1c4 <FAIL>
+ 190:	00150513          	addi	a0,a0,1
+ 194:	0021d193          	srli	gp,gp,0x2
+ 198:	02519663          	bne	gp,t0,1c4 <FAIL>
+ 19c:	00150513          	addi	a0,a0,1
+ 1a0:	044001ef          	jal	gp,1e4 <SUB_ROUTINE>
+ 1a4:	0200006f          	j	1c4 <FAIL>
+ 1a8:	00000013          	nop
+ 1ac:	00000013          	nop
+ 1b0:	00000013          	nop
+ 1b4:	00000033          	add	zero,zero,zero
+ 1b8:	00000013          	nop
+ 1bc:	00000013          	nop
+ 1c0:	00000013          	nop
+
+00000000000001c4 <FAIL>:
+ 1c4:	00100a13          	li	s4,1
+ 1c8:	00000013          	nop
+ 1cc:	00000013          	nop
+ 1d0:	00000013          	nop
+ 1d4:	00000033          	add	zero,zero,zero
+ 1d8:	00000013          	nop
+ 1dc:	00000013          	nop
+ 1e0:	00000013          	nop
+
+00000000000001e4 <SUB_ROUTINE>:
+ 1e4:	00150513          	addi	a0,a0,1
+ 1e8:	358001ef          	jal	gp,540 <SUB_ROUTINE2>
+ 1ec:	00150513          	addi	a0,a0,1
+ 1f0:	64a02023          	sw	a0,1600(zero) # 640 <PASS+0xdc>
+ 1f4:	64002583          	lw	a1,1600(zero) # 640 <PASS+0xdc>
+ 1f8:	fca596e3          	bne	a1,a0,1c4 <FAIL>
+ 1fc:	00150513          	addi	a0,a0,1
+ 200:	0ff00693          	li	a3,255
+ 204:	64d00023          	sb	a3,1600(zero) # 640 <PASS+0xdc>
+ 208:	64004703          	lbu	a4,1600(zero) # 640 <PASS+0xdc>
+ 20c:	fad71ce3          	bne	a4,a3,1c4 <FAIL>
+ 210:	00150513          	addi	a0,a0,1
+ 214:	3ff00693          	li	a3,1023
+ 218:	64d01023          	sh	a3,1600(zero) # 640 <PASS+0xdc>
+ 21c:	64005703          	lhu	a4,1600(zero) # 640 <PASS+0xdc>
+ 220:	fad712e3          	bne	a4,a3,1c4 <FAIL>
+ 224:	00150513          	addi	a0,a0,1
+ 228:	0fa00693          	li	a3,250
+ 22c:	64d00023          	sb	a3,1600(zero) # 640 <PASS+0xdc>
+ 230:	64000783          	lb	a5,1600(zero) # 640 <PASS+0xdc>
+ 234:	0ff7f793          	andi	a5,a5,255
+ 238:	f8d796e3          	bne	a5,a3,1c4 <FAIL>
+ 23c:	00150513          	addi	a0,a0,1
+ 240:	0000f737          	lui	a4,0xf
+ 244:	73a70713          	addi	a4,a4,1850 # f73a <PASS+0xf1d6>
+ 248:	64e01023          	sh	a4,1600(zero) # 640 <PASS+0xdc>
+ 24c:	64001783          	lh	a5,1600(zero) # 640 <PASS+0xdc>
+ 250:	0000f837          	lui	a6,0xf
+ 254:	7ff80813          	addi	a6,a6,2047 # f7ff <PASS+0xf29b>
+ 258:	7ff80813          	addi	a6,a6,2047
+ 25c:	00180813          	addi	a6,a6,1
+ 260:	0107f7b3          	and	a5,a5,a6
+ 264:	f6e790e3          	bne	a5,a4,1c4 <FAIL>
+ 268:	00150513          	addi	a0,a0,1
+ 26c:	0ab00693          	li	a3,171
+ 270:	0009f9b3          	and	s3,s3,zero
+ 274:	0ab98993          	addi	s3,s3,171
+ 278:	f4d996e3          	bne	s3,a3,1c4 <FAIL>
+ 27c:	00150513          	addi	a0,a0,1
+ 280:	00068713          	mv	a4,a3
+ 284:	f4e690e3          	bne	a3,a4,1c4 <FAIL>
+ 288:	00150513          	addi	a0,a0,1
+ 28c:	aaaaa6b7          	lui	a3,0xaaaaa
+ 290:	0aa68693          	addi	a3,a3,170 # ffffffffaaaaa0aa <__global_pointer$+0xffffffffaaa9886a>
+ 294:	55555737          	lui	a4,0x55555
+ 298:	75570713          	addi	a4,a4,1877 # 55555755 <__global_pointer$+0x55543f15>
+ 29c:	7ff70713          	addi	a4,a4,2047
+ 2a0:	00170713          	addi	a4,a4,1
+ 2a4:	fff74713          	not	a4,a4
+ 2a8:	f0e69ee3          	bne	a3,a4,1c4 <FAIL>
+ 2ac:	00150513          	addi	a0,a0,1
+ 2b0:	00168693          	addi	a3,a3,1
+ 2b4:	fff74713          	not	a4,a4
+ 2b8:	40e00733          	neg	a4,a4
+ 2bc:	f0e694e3          	bne	a3,a4,1c4 <FAIL>
+ 2c0:	00150513          	addi	a0,a0,1
+ 2c4:	00100093          	li	ra,1
+ 2c8:	00103293          	seqz	t0,zero
+ 2cc:	ee129ce3          	bne	t0,ra,1c4 <FAIL>
+ 2d0:	00150513          	addi	a0,a0,1
+ 2d4:	00503333          	snez	t1,t0
+ 2d8:	ee1316e3          	bne	t1,ra,1c4 <FAIL>
+ 2dc:	00003333          	snez	t1,zero
+ 2e0:	ee0312e3          	bnez	t1,1c4 <FAIL>
+ 2e4:	00150513          	addi	a0,a0,1
+ 2e8:	00008113          	mv	sp,ra
+ 2ec:	40200133          	neg	sp,sp
+ 2f0:	00012333          	sltz	t1,sp
+ 2f4:	ec1318e3          	bne	t1,ra,1c4 <FAIL>
+ 2f8:	0000a333          	sltz	t1,ra
+ 2fc:	ec0314e3          	bnez	t1,1c4 <FAIL>
+ 300:	00150513          	addi	a0,a0,1
+ 304:	00102333          	sgtz	t1,ra
+ 308:	ea131ee3          	bne	t1,ra,1c4 <FAIL>
+ 30c:	00202333          	sgtz	t1,sp
+ 310:	ea031ae3          	bnez	t1,1c4 <FAIL>
+ 314:	00150513          	addi	a0,a0,1
+ 318:	02000263          	beqz	zero,33c <SUB_ROUTINE3>
+ 31c:	ea9ff06f          	j	1c4 <FAIL>
+ 320:	00000013          	nop
+ 324:	00000013          	nop
+ 328:	00000013          	nop
+ 32c:	00000033          	add	zero,zero,zero
+ 330:	00000013          	nop
+ 334:	00000013          	nop
+ 338:	00000013          	nop
+
+000000000000033c <SUB_ROUTINE3>:
+ 33c:	00150513          	addi	a0,a0,1
+ 340:	02009263          	bnez	ra,364 <SUB_ROUTINE4>
+ 344:	e81ff06f          	j	1c4 <FAIL>
+ 348:	00000013          	nop
+ 34c:	00000013          	nop
+ 350:	00000013          	nop
+ 354:	00000033          	add	zero,zero,zero
+ 358:	00000013          	nop
+ 35c:	00000013          	nop
+ 360:	00000013          	nop
+
+0000000000000364 <SUB_ROUTINE4>:
+ 364:	00150513          	addi	a0,a0,1
+ 368:	02205263          	blez	sp,38c <SUB_ROUTINE5>
+ 36c:	e59ff06f          	j	1c4 <FAIL>
+ 370:	00000013          	nop
+ 374:	00000013          	nop
+ 378:	00000013          	nop
+ 37c:	00000033          	add	zero,zero,zero
+ 380:	00000013          	nop
+ 384:	00000013          	nop
+ 388:	00000013          	nop
+
+000000000000038c <SUB_ROUTINE5>:
+ 38c:	02005263          	blez	zero,3b0 <SUB_ROUTINE6>
+ 390:	e35ff06f          	j	1c4 <FAIL>
+ 394:	00000013          	nop
+ 398:	00000013          	nop
+ 39c:	00000013          	nop
+ 3a0:	00000033          	add	zero,zero,zero
+ 3a4:	00000013          	nop
+ 3a8:	00000013          	nop
+ 3ac:	00000013          	nop
+
+00000000000003b0 <SUB_ROUTINE6>:
+ 3b0:	00150513          	addi	a0,a0,1
+ 3b4:	0200d263          	bgez	ra,3d8 <SUB_ROUTINE7>
+ 3b8:	e0dff06f          	j	1c4 <FAIL>
+ 3bc:	00000013          	nop
+ 3c0:	00000013          	nop
+ 3c4:	00000013          	nop
+ 3c8:	00000033          	add	zero,zero,zero
+ 3cc:	00000013          	nop
+ 3d0:	00000013          	nop
+ 3d4:	00000013          	nop
+
+00000000000003d8 <SUB_ROUTINE7>:
+ 3d8:	02005263          	blez	zero,3fc <SUB_ROUTINE8>
+ 3dc:	de9ff06f          	j	1c4 <FAIL>
+ 3e0:	00000013          	nop
+ 3e4:	00000013          	nop
+ 3e8:	00000013          	nop
+ 3ec:	00000033          	add	zero,zero,zero
+ 3f0:	00000013          	nop
+ 3f4:	00000013          	nop
+ 3f8:	00000013          	nop
+
+00000000000003fc <SUB_ROUTINE8>:
+ 3fc:	00150513          	addi	a0,a0,1
+ 400:	02014263          	bltz	sp,424 <SUB_ROUTINE9>
+ 404:	dc1ff06f          	j	1c4 <FAIL>
+ 408:	00000013          	nop
+ 40c:	00000013          	nop
+ 410:	00000013          	nop
+ 414:	00000033          	add	zero,zero,zero
+ 418:	00000013          	nop
+ 41c:	00000013          	nop
+ 420:	00000013          	nop
+
+0000000000000424 <SUB_ROUTINE9>:
+ 424:	00150513          	addi	a0,a0,1
+ 428:	02104263          	bgtz	ra,44c <SUB_ROUTINE10>
+ 42c:	d99ff06f          	j	1c4 <FAIL>
+ 430:	00000013          	nop
+ 434:	00000013          	nop
+ 438:	00000013          	nop
+ 43c:	00000033          	add	zero,zero,zero
+ 440:	00000013          	nop
+ 444:	00000013          	nop
+ 448:	00000013          	nop
+
+000000000000044c <SUB_ROUTINE10>:
+ 44c:	00150513          	addi	a0,a0,1
+ 450:	0220d263          	ble	sp,ra,474 <SUB_ROUTINE11>
+ 454:	d71ff06f          	j	1c4 <FAIL>
+ 458:	00000013          	nop
+ 45c:	00000013          	nop
+ 460:	00000013          	nop
+ 464:	00000033          	add	zero,zero,zero
+ 468:	00000013          	nop
+ 46c:	00000013          	nop
+ 470:	00000013          	nop
+
+0000000000000474 <SUB_ROUTINE11>:
+ 474:	00150513          	addi	a0,a0,1
+ 478:	0220e263          	bltu	ra,sp,49c <SUB_ROUTINE12>
+ 47c:	d49ff06f          	j	1c4 <FAIL>
+ 480:	00000013          	nop
+ 484:	00000013          	nop
+ 488:	00000013          	nop
+ 48c:	00000033          	add	zero,zero,zero
+ 490:	00000013          	nop
+ 494:	00000013          	nop
+ 498:	00000013          	nop
+
+000000000000049c <SUB_ROUTINE12>:
+ 49c:	00150513          	addi	a0,a0,1
+ 4a0:	02117263          	bleu	ra,sp,4c4 <SUB_ROUTINE13>
+ 4a4:	d21ff06f          	j	1c4 <FAIL>
+ 4a8:	00000013          	nop
+ 4ac:	00000013          	nop
+ 4b0:	00000013          	nop
+ 4b4:	00000033          	add	zero,zero,zero
+ 4b8:	00000013          	nop
+ 4bc:	00000013          	nop
+ 4c0:	00000013          	nop
+
+00000000000004c4 <SUB_ROUTINE13>:
+ 4c4:	00150513          	addi	a0,a0,1
+ 4c8:	00000097          	auipc	ra,0x0
+ 4cc:	028080e7          	jalr	40(ra) # 4f0 <SUB_ROUTINE14>
+ 4d0:	cf5ff06f          	j	1c4 <FAIL>
+ 4d4:	00000013          	nop
+ 4d8:	00000013          	nop
+ 4dc:	00000013          	nop
+ 4e0:	00000033          	add	zero,zero,zero
+ 4e4:	00000013          	nop
+ 4e8:	00000013          	nop
+ 4ec:	00000013          	nop
+
+00000000000004f0 <SUB_ROUTINE14>:
+ 4f0:	00150513          	addi	a0,a0,1
+ 4f4:	00000097          	auipc	ra,0x0
+ 4f8:	028080e7          	jalr	40(ra) # 51c <SUB_ROUTINE15>
+ 4fc:	0680006f          	j	564 <PASS>
+ 500:	00000013          	nop
+ 504:	00000013          	nop
+ 508:	00000013          	nop
+ 50c:	00000033          	add	zero,zero,zero
+ 510:	00000013          	nop
+ 514:	00000013          	nop
+ 518:	00000013          	nop
+
+000000000000051c <SUB_ROUTINE15>:
+ 51c:	00008067          	ret
+ 520:	ca5ff06f          	j	1c4 <FAIL>
+ 524:	00000013          	nop
+ 528:	00000013          	nop
+ 52c:	00000013          	nop
+ 530:	00000033          	add	zero,zero,zero
+ 534:	00000013          	nop
+ 538:	00000013          	nop
+ 53c:	00000013          	nop
+
+0000000000000540 <SUB_ROUTINE2>:
+ 540:	00018067          	jr	gp
+ 544:	c81ff06f          	j	1c4 <FAIL>
+ 548:	00000013          	nop
+ 54c:	00000013          	nop
+ 550:	00000013          	nop
+ 554:	00000033          	add	zero,zero,zero
+ 558:	00000013          	nop
+ 55c:	00000013          	nop
+ 560:	00000013          	nop
+
+0000000000000564 <PASS>:
+ 564:	001c8c93          	addi	s9,s9,1
+ 568:	00000013          	nop
+ 56c:	00000013          	nop
+ 570:	00000013          	nop
+ 574:	00000033          	add	zero,zero,zero
+ 578:	00000013          	nop
+ 57c:	00000013          	nop
+ 580:	00000013          	nop

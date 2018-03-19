@@ -94,7 +94,7 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 	INSTRUCTIONTESTS(JALR)
 		arg1 = 10;
 		arg2 = 10;
-		REQUIRE(output == 20);
+		REQUIRE(output == 10);
 		REQUIRE(zeroSignal == true);
 	}
 	INSTRUCTIONTESTS(LB)
@@ -248,7 +248,7 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 	INSTRUCTIONTESTS(JAL)
 		arg1 = 3;
 		arg2 = 1;
-		REQUIRE(output == 0);
+		REQUIRE(output == 3);
 		REQUIRE(zeroSignal == true);
 	}
 	INSTRUCTIONTESTS(ADD)
@@ -356,6 +356,10 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 		arg2 = 0;
 		REQUIRE(output == 1);
 		REQUIRE(zeroSignal == false);
+		arg1 = 680;
+		arg2 = 2;
+		REQUIRE(output == 170);
+		REQUIRE(zeroSignal == false);
 	}
 	INSTRUCTIONTESTS(SRA)
 		arg1 = 3;
@@ -420,11 +424,11 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 	INSTRUCTIONTESTS(AUIPC)
 		arg1 = 3;
 		arg2 = 1;
-		REQUIRE(output == 1<<12);
+		REQUIRE(output == (1<<12) + 3);
 		REQUIRE(zeroSignal == false);
 		arg1 = 1;
 		arg2 = 0;
-		REQUIRE(output == 0);
+		REQUIRE(output == 1);
 		REQUIRE(zeroSignal == false);
 	}
 }

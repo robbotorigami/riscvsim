@@ -73,18 +73,88 @@ private:
 	Signal<bool>& zeroSignal;
 };
 
-class IsLinkGenerator: public DrivenObject{
+class ArgumentSelectionGenerator: public DrivenObject{
 public:
-	IsLinkGenerator(Signal<Instruction*>& instructionIn, Signal<bool>& output);
-	~IsLinkGenerator();
+	ArgumentSelectionGenerator(Signal<Instruction*>& instructionIn,
+			Signal<bool>& arg1SelOut, Signal<bool>& arg2SelOut, Signal<bool>& pcSrcSel);
+	~ArgumentSelectionGenerator();
 
 	void computeSignals();
 private:
 	//! Instruction pointer input
 	Signal<Instruction*>& instructionIn;
-	//! Is a Link instruction
-	Signal<bool>& output;
+	//! Argument 1 Selection output
+	Signal<bool>& arg1SelOut;
+	//! Argument 2 Selection output
+	Signal<bool>& arg2SelOut;
+	//! PC or Register control signal
+	Signal<bool>& pcSrcSel;
 };
 
+class MemoryControlGenerator: public DrivenObject{
+public:
+	MemoryControlGenerator(Signal<Instruction*>& instructionIn,Signal<bool>& memRead,
+			Signal<bool>& memWrite, Signal<BitCount_t>& bitcount);
+	~MemoryControlGenerator();
+
+	void computeSignals();
+private:
+	//! Instruction pointer input
+	Signal<Instruction*>& instructionIn;
+	Signal<bool>& memRead;
+	Signal<bool>& memWrite;
+	Signal<BitCount_t>& bitcount;
+};
+
+class StorePreprocessor: public DrivenObject{
+public:
+	StorePreprocessor(Signal<Instruction*>& instructionIn, Signal<regdata>& input, Signal<regdata>& output);
+	~StorePreprocessor();
+
+	void computeSignals();
+private:
+	Signal<Instruction*>& instructionIn;
+	Signal<regdata>& input;
+	Signal<regdata>& output;
+};
+
+class LoadPostprocessor: public DrivenObject{
+public:
+	LoadPostprocessor(Signal<Instruction*>& instructionIn, Signal<regdata>& input, Signal<regdata>& output);
+	~LoadPostprocessor();
+
+	void computeSignals();
+private:
+	Signal<Instruction*>& instructionIn;
+	Signal<regdata>& input;
+	Signal<regdata>& output;
+};
+
+class WritebackGenerator: public DrivenObject{
+public:
+	WritebackGenerator(Signal<Instruction*>& instructionIn,
+			Signal<bool>& regWriteOut, Signal<bool>& memtoReg, Signal<regaddress>& rdOut);
+	~WritebackGenerator();
+
+	void computeSignals();
+
+private:
+	Signal<Instruction*>& instructionIn;
+	Signal<bool>& regWriteOut;
+	Signal<bool>& memtoReg;
+	Signal<regaddress>& rdOut;
+};
+
+class InstructionSink: public ClockableObject{
+public:
+	InstructionSink(Signal<Instruction*>& instructionIn);
+	~InstructionSink();
+
+	void clock(ClockEdge edge);
+
+private:
+	Register<Instruction*>* insReg;
+	Signal<Instruction*> insFinal;
+};
 
 #endif /* INCLUDE_INSTRUCTION_INSTRUCTIONSIGNALS_H_ */

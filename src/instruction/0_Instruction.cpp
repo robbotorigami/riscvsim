@@ -4,7 +4,6 @@
  */
 
 #include <instruction/0_Instructions.h>
-#include "util/easylogging++.h"
 #include <iostream>
 #include <algorithm>
 

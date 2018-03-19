@@ -57,10 +57,6 @@ regaddress BInstruction::getRS2(){
 	return fields.rs2;
 }
 
-ALUSrc_t BInstruction::getALUSrc(){
-	return REGISTER;
-}
-
 INSTRUCTION_BOILERPLATE(BEQ)
 INSTRUCTION_BOILERPLATE(BNE)
 INSTRUCTION_BOILERPLATE(BLT)
@@ -82,5 +78,18 @@ ALU_OPERATION(BGE, 	0, 	arg1 >= arg2)
 ALU_OPERATION(BLTU,	0,	(uint64_t)arg1 <  (uint64_t)arg2)
 ALU_OPERATION(BGEU, 0,  (uint64_t)arg1 >= (uint64_t)arg2)
 
+ALU_SOURCE(BEQ,  REGISTER, REGISTER)
+ALU_SOURCE(BNE,  REGISTER, REGISTER)
+ALU_SOURCE(BLT,  REGISTER, REGISTER)
+ALU_SOURCE(BGE,  REGISTER, REGISTER)
+ALU_SOURCE(BLTU, REGISTER, REGISTER)
+ALU_SOURCE(BGEU, REGISTER, REGISTER)
 
+//Branch never includes writeback
+WRITEBACK(BEQ,  0, false, false)
+WRITEBACK(BNE,  0, false, false)
+WRITEBACK(BLT,  0, false, false)
+WRITEBACK(BGE,  0, false, false)
+WRITEBACK(BLTU, 0, false, false)
+WRITEBACK(BGEU, 0, false, false)
 

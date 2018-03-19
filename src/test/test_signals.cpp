@@ -9,6 +9,17 @@
 #include "cpucore/Signals.h"
 #include "instruction/InstructionSignals.h"
 #include "test/gen_testcodes.h"
+#include "instruction/BInstructions.h"
+#include "instruction/IInstructions.h"
+#include "instruction/JInstructions.h"
+#include "instruction/RInstructions.h"
+#include "instruction/SInstructions.h"
+#include "instruction/UInstructions.h"
+
+#define INSTRUCTIONTESTS(NAME) \
+	SECTION("TEST " #NAME){ \
+		Instruction##NAME instance ##NAME; \
+		ins = & instance##NAME;
 
 #include <stdint.h>
 
@@ -264,5 +275,105 @@ TEST_CASE("Test that the read register parsing functions correctly", "[signals][
 		}
 	}
 
+}
+
+//TODO: only tests one of each group
+TEST_CASE("Test that the memory controll signals work properly", "[signals][parsing]"){
+	Signal<Instruction*> ins;
+	Signal<bool> memRead, memWrite;
+	Signal<BitCount_t> bitcount;
+
+	MemoryControlGenerator mcGen(ins, memRead, memWrite, bitcount);
+
+	INSTRUCTIONTESTS(BEQ)
+		REQUIRE(!memRead);
+		REQUIRE(!memWrite);
+	}
+
+	INSTRUCTIONTESTS(LW)
+		REQUIRE(memRead);
+		REQUIRE(!memWrite);
+	}
+
+	INSTRUCTIONTESTS(SB)
+		REQUIRE(!memRead);
+		REQUIRE(bitcount == BIT8);
+	}
+
+	INSTRUCTIONTESTS(SH)
+		REQUIRE(!memRead);
+		REQUIRE(bitcount == BIT16);
+	}
+
+	INSTRUCTIONTESTS(SW)
+		REQUIRE(!memRead);
+		REQUIRE(bitcount == BIT32);
+	}
+
+	INSTRUCTIONTESTS(SD)
+		REQUIRE(!memRead);
+		REQUIRE(bitcount == BIT64);
+	}
+}
+
+TEST_CASE("Test that the store processing works correctly", "[signals][parsing]"){
+	Signal<Instruction*> ins;
+	Signal<regdata> input, output;
+
+	input = 0x0123ABCDEF;
+
+	StorePreprocessor spp(ins, input, output);
+
+	INSTRUCTIONTESTS(SB)
+		REQUIRE(output == 0xEF);
+	}
+
+	INSTRUCTIONTESTS(SH)
+		REQUIRE(output == 0xCDEF);
+	}
+
+	INSTRUCTIONTESTS(SW)
+		REQUIRE(output == 0x23ABCDEF);
+	}
+
+	INSTRUCTIONTESTS(SD)
+		REQUIRE(output == 0x0123ABCDEF);
+	}
+}
+
+//TODO: test all
+TEST_CASE("Test that the load processing works correctly", "[signals][parsing]"){
+	Signal<Instruction*> ins;
+	Signal<regdata> input, output;
+
+	input = 0x0123ABCDEF;
+
+	LoadPostprocessor lpp(ins, input, output);
+
+	INSTRUCTIONTESTS(LBU)
+		REQUIRE(output == 0xEF);
+	}
+
+	INSTRUCTIONTESTS(LB)
+		REQUIRE(output == 0xFFFFFFFFFFFFFFEF);
+	}
+
+	INSTRUCTIONTESTS(LHU)
+		REQUIRE(output == 0xCDEF);
+	}
+
+	INSTRUCTIONTESTS(LH)
+		REQUIRE(output == 0xFFFFFFFFFFFFCDEF);
+	}
+
+	INSTRUCTIONTESTS(LWU)
+		REQUIRE(output == 0x23ABCDEF);
+	}
+	INSTRUCTIONTESTS(LW)
+		REQUIRE(output == 0x0000000023ABCDEF);
+	}
+	INSTRUCTIONTESTS(LD)
+		REQUIRE(output == 0x0123ABCDEF);
+	}
 }
 

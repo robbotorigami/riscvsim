@@ -69,10 +69,6 @@ regaddress IInstruction::getRS2(){
 	return 0;
 }
 
-ALUSrc_t IInstruction::getALUSrc(){
-	return IMMEDIATE;
-}
-
 
 INSTRUCTION_BOILERPLATE(JALR);
 INSTRUCTION_BOILERPLATE(LB);
@@ -111,8 +107,10 @@ MATCHES_ON(SLLI, 	fields.funct3 == 0b001 && fields.opcode == 0b0010011);
 MATCHES_ON(SRLI, 	!(fields.immed & 0b010000000000) && fields.funct3 == 0b101 && fields.opcode == 0b0010011);
 MATCHES_ON(SRAI, 	 (fields.immed & 0b010000000000) && fields.funct3 == 0b101 && fields.opcode == 0b0010011);
 
-//ALU is irrelevant for JALR, but always branch
-ALU_OPERATION(JALR, 		arg1+arg2,		true);
+
+
+//ALU should return PC+4, always branch
+ALU_OPERATION(JALR, 		arg1+4,			true);
 //Compute address as sum of two args for load, never branch
 ALU_OPERATION(LB, 			arg1+arg2, 		false);
 ALU_OPERATION(LH, 			arg1+arg2, 		false);
@@ -130,5 +128,52 @@ ALU_OPERATION(ORI, 			arg1|arg2, 		false);
 ALU_OPERATION(ANDI, 		arg1&arg2, 		false);
 ALU_OPERATION(SLLI, 		arg1<<arg2, 		false);
 //Bit shifting magic to ensure logical right shift
-ALU_OPERATION(SRLI, 		(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRLI, 		((uint64_t)arg1>>arg2), 		false);
 ALU_OPERATION(SRAI, 		arg1>>arg2, 		false);
+
+
+
+ALU_SOURCE(JALR, 	PROGRAMCOUNTER, IMMEDIATE)
+ALU_SOURCE(LB, 		REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LH, 		REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LW, 		REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LBU, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LHU, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LWU, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(LD, 		REGISTER, 		IMMEDIATE)
+ALU_SOURCE(ADDI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(SLTI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(SLTIU, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(XORI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(ORI, 	REGISTER,	 	IMMEDIATE)
+ALU_SOURCE(ANDI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(SLLI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(SRLI, 	REGISTER, 		IMMEDIATE)
+ALU_SOURCE(SRAI, 	REGISTER, 		IMMEDIATE)
+
+LOAD_OPERATION(LB,  EXTEND8(val),				 BIT8);
+LOAD_OPERATION(LH,  EXTEND16(val),				 BIT16);
+LOAD_OPERATION(LW,  EXTEND32(val),				 BIT32);
+LOAD_OPERATION(LBU, val & 0xFF, 				 BIT8);
+LOAD_OPERATION(LHU, val & 0xFFFF,				 BIT16);
+LOAD_OPERATION(LWU, val & 0xFFFFFFFF,			 BIT32);
+LOAD_OPERATION(LD, 	val & 0xFFFFFFFFFFFFFFFF,	 BIT64);
+
+//Writeback to RD register, mem to reg on loads only
+WRITEBACK(JALR, fields.rd, true, false)
+WRITEBACK(LB, fields.rd, true, true)
+WRITEBACK(LH, fields.rd, true, true)
+WRITEBACK(LW, fields.rd, true, true)
+WRITEBACK(LBU, fields.rd, true, true)
+WRITEBACK(LHU, fields.rd, true, true)
+WRITEBACK(LWU,  fields.rd, true, true)
+WRITEBACK(LD,  fields.rd, true, true)
+WRITEBACK(ADDI,  fields.rd, true, false)
+WRITEBACK(SLTI,  fields.rd, true, false)
+WRITEBACK(SLTIU,  fields.rd, true, false)
+WRITEBACK(XORI,  fields.rd, true, false)
+WRITEBACK(ORI,  fields.rd, true, false)
+WRITEBACK(ANDI,  fields.rd, true, false)
+WRITEBACK(SLLI,  fields.rd, true, false)
+WRITEBACK(SRLI,  fields.rd, true, false)
+WRITEBACK(SRAI,  fields.rd, true, false)

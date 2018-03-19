@@ -6,13 +6,15 @@
  */
 
 #include "cpucore/InstructionFetch.h"
+#include "config.h"
 
 IFStage::IFStage(Memory& mem, Signal<pcval_t>& pcALU, Signal<bool>& PCSrc,
 		Signal<pcval_t>& pcOut, Signal<inscode>& instructionOut)
 :mem(mem), pcALU(pcALU), PCSrc(PCSrc), pcOut(pcOut), instructionOut(instructionOut)
 {
 	pcMux = new Mux<pcval_t>(pcIncrement, pcALU, PCSrc, pcIn);
-	pc = new Register<pcval_t>(pcIn, pcVal);
+	ppc = new Register<pcval_t>(pcIn, pcIntermed);
+	pc = new Register<pcval_t>(pcIntermed, pcVal);
 	inssize = sizeof(pcval_t);
 	pcIncrementer = new Adder<pcval_t>(pcVal, inssize, pcIncrement);
 	im = new InstructionMemory(mem, pcVal, instruction);
@@ -22,6 +24,7 @@ IFStage::IFStage(Memory& mem, Signal<pcval_t>& pcALU, Signal<bool>& PCSrc,
 
 	pcIn = 0;
 	pcVal = 0;
+	INFORMATION("PC: " << static_cast<pcval_t>(pcOut));
 }
 
 IFStage::~IFStage(){
@@ -34,5 +37,10 @@ IFStage::~IFStage(){
 }
 
 void IFStage::clock(ClockEdge edge){
-	pc->clock(edge);
+	if(edge == FALLING){
+		ppc->clock(edge);
+	}else{
+		pc->clock(edge);
+		INFORMATION("PC: " << static_cast<pcval_t>(pcOut));
+	}
 }

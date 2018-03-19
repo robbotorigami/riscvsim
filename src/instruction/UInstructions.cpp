@@ -41,10 +41,6 @@ regaddress UInstruction::getRS2(){
 	return 0;
 }
 
-ALUSrc_t UInstruction::getALUSrc(){
-	return IMMEDIATE;
-}
-
 INSTRUCTION_BOILERPLATE(LUI)
 INSTRUCTION_BOILERPLATE(AUIPC)
 
@@ -52,8 +48,13 @@ MATCHES_ON(LUI, 	fields.opcode == 0b0110111)
 MATCHES_ON(AUIPC, 	fields.opcode == 0b0010111)
 
 //Just return the immediate shifted appropriately, never branch
-ALU_OPERATION(LUI, 	arg2<<12, false)
-ALU_OPERATION(AUIPC,arg2<<12, false)
+ALU_OPERATION(LUI, 	 arg2<<12,        false)
+//Same as LUI but add PC
+ALU_OPERATION(AUIPC, arg1 + (arg2<<12), false)
 
+ALU_SOURCE(LUI,   REGISTER, IMMEDIATE)
+ALU_SOURCE(AUIPC, PROGRAMCOUNTER, IMMEDIATE)
 
-
+//Always writeback, never memtoreg
+WRITEBACK(LUI, fields.rd, true, false)
+WRITEBACK(AUIPC, fields.rd, true, false)

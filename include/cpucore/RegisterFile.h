@@ -49,6 +49,7 @@ public:
 	void clock(ClockEdge edge);
 
 private:
+	void printInfo();
 	//! Read Register 1 input
 	Signal<regaddress>& readRegister1;
 	//! Read register 2 input

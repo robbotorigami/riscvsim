@@ -188,7 +188,7 @@ BGEU1:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -200,7 +200,7 @@ FAIL:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -320,7 +320,7 @@ SUB_ROUTINE:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -335,7 +335,7 @@ SUB_ROUTINE3:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -350,7 +350,7 @@ SUB_ROUTINE4:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -363,7 +363,7 @@ SUB_ROUTINE5:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -378,7 +378,7 @@ SUB_ROUTINE6:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -391,7 +391,7 @@ SUB_ROUTINE7:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -406,7 +406,7 @@ SUB_ROUTINE8:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -421,7 +421,7 @@ SUB_ROUTINE9:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -436,7 +436,7 @@ SUB_ROUTINE10:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -451,7 +451,7 @@ SUB_ROUTINE11:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -466,7 +466,7 @@ SUB_ROUTINE12:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -481,7 +481,7 @@ SUB_ROUTINE13:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -495,7 +495,7 @@ SUB_ROUTINE14:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -508,7 +508,7 @@ SUB_ROUTINE15:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
@@ -521,19 +521,19 @@ SUB_ROUTINE2:
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, FAIL
     nop
     nop
     nop
 
 
 PASS:
-    addi x25,x25,1 #set x25 to 1 is all intsructions are working correctly
+    addi x25,x0,1 #set x25 to 1 is all intsructions are working correctly
 
     nop
     nop
     nop
-    add x0, x0, x0
+    jal x0, PASS
     nop
     nop
     nop

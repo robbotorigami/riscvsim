@@ -50,15 +50,17 @@ regaddress JInstruction::getRS2(){
 	return 0;
 }
 
-ALUSrc_t JInstruction::getALUSrc(){
-	return IMMEDIATE;
-}
 
 INSTRUCTION_BOILERPLATE(JAL)
 
 MATCHES_ON(JAL, 	fields.opcode == 0b1101111)
 
-//ALU Operation is basically irrelevant, always branch
-ALU_OPERATION(JAL, 0, true);
+//ALU return PC+4, always branch
+ALU_OPERATION(JAL, arg1+4, true);
+
+ALU_SOURCE(JAL, PROGRAMCOUNTER, IMMEDIATE)
+
+//Writeback to rd always, never memtoreg
+WRITEBACK(JAL, fields.rd, true, false)
 
 

@@ -49,9 +49,6 @@ regaddress SInstruction::getRS2(){
 	return fields.rs2;
 }
 
-ALUSrc_t SInstruction::getALUSrc(){
-	return REGISTER;
-}
 
 INSTRUCTION_BOILERPLATE(SB)
 INSTRUCTION_BOILERPLATE(SH)
@@ -67,3 +64,19 @@ ALU_OPERATION(SB, 	arg1+arg2,	false)
 ALU_OPERATION(SH, 	arg1+arg2,	false)
 ALU_OPERATION(SW, 	arg1+arg2,	false)
 ALU_OPERATION(SD, 	arg1+arg2,	false)
+
+ALU_SOURCE(SB, 	REGISTER,	IMMEDIATE)
+ALU_SOURCE(SH, 	REGISTER,	IMMEDIATE)
+ALU_SOURCE(SW, 	REGISTER,	IMMEDIATE)
+ALU_SOURCE(SD, 	REGISTER,	IMMEDIATE)
+
+STORE_OPERATION(SB, val & 0xFF, 				BIT8);
+STORE_OPERATION(SH, val & 0xFFFF, 				BIT16);
+STORE_OPERATION(SW, val & 0xFFFFFFFF, 			BIT32);
+STORE_OPERATION(SD, val & 0xFFFFFFFFFFFFFFFF, 	BIT64);
+
+//Never writeback
+WRITEBACK(SB, 0, false, false)
+WRITEBACK(SH, 0, false, false)
+WRITEBACK(SW, 0, false, false)
+WRITEBACK(SD, 0, false, false)

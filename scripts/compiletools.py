@@ -69,12 +69,13 @@ class codeobject:
 
             tsize = len(textsection.data())
             text = textsection.data()
-            dsize = 0
-            data = b''
+            dsize = 16000
+            data = b''*16000
             ssize = 0
             stack = b''
 
         filebytes = struct.pack('I', tsize) + struct.pack('I', dsize) + struct.pack('I', ssize)
+        print(filebytes)
         filebytes += text + data + stack
         return filebytes
 

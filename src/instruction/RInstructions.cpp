@@ -46,10 +46,6 @@ regaddress RInstruction::getRS2(){
 	return fields.rs2;
 }
 
-ALUSrc_t RInstruction::getALUSrc(){
-	return REGISTER;
-}
-
 
 INSTRUCTION_BOILERPLATE(ADD)
 INSTRUCTION_BOILERPLATE(SUB)
@@ -93,12 +89,46 @@ ALU_OPERATION(OR, 			arg1|arg2, 		false);
 ALU_OPERATION(AND, 			arg1&arg2, 		false);
 ALU_OPERATION(SLL,	 		arg1<<arg2, 		false);
 //Bit shifting magic to ensure logical right shift
-ALU_OPERATION(SRL, 			(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRL, 			((uint64_t)arg1>>arg2), 		false);
 ALU_OPERATION(SRA, 			arg1>>arg2, 		false);
 //Word operators just need to be masked
 ALU_OPERATION(ADDW, 		(uint32_t)arg1+(uint32_t)arg2, 		false);
 ALU_OPERATION(SUBW, 		(uint32_t)arg1-(uint32_t)arg2, 		false);
 //TODO: Bit shifting magic to make this work properly...
 ALU_OPERATION(SLLW,	 			arg1<<arg2, 		false);
-ALU_OPERATION(SRLW, 			(arg1>>arg2)&~((uint64_t)~0 << (arg2+1)), 		false);
+ALU_OPERATION(SRLW, 			((uint64_t)arg1>>arg2), 		false);
 ALU_OPERATION(SRAW, 			arg1>>arg2, 		false);
+
+ALU_SOURCE(ADD,		REGISTER, 	REGISTER)
+ALU_SOURCE(SUB,		REGISTER, 	REGISTER)
+ALU_SOURCE(SLL,		REGISTER, 	REGISTER)
+ALU_SOURCE(SLT,		REGISTER, 	REGISTER)
+ALU_SOURCE(SLTU,	REGISTER, 	REGISTER)
+ALU_SOURCE(SRL,		REGISTER, 	REGISTER)
+ALU_SOURCE(SRA,		REGISTER, 	REGISTER)
+ALU_SOURCE(XOR,		REGISTER, 	REGISTER)
+ALU_SOURCE(OR,		REGISTER, 	REGISTER)
+ALU_SOURCE(AND,		REGISTER, 	REGISTER)
+ALU_SOURCE(ADDW,	REGISTER, 	REGISTER)
+ALU_SOURCE(SUBW,	REGISTER, 	REGISTER)
+ALU_SOURCE(SLLW,	REGISTER, 	REGISTER)
+ALU_SOURCE(SRLW,	REGISTER, 	REGISTER)
+ALU_SOURCE(SRAW,	REGISTER, 	REGISTER)
+
+//Always writeback, never memtoreg
+WRITEBACK(ADD,		fields.rd, true, false)
+WRITEBACK(SUB,		fields.rd, true, false)
+WRITEBACK(SLL,		fields.rd, true, false)
+WRITEBACK(SLT,		fields.rd, true, false)
+WRITEBACK(SLTU,		fields.rd, true, false)
+WRITEBACK(SRL,		fields.rd, true, false)
+WRITEBACK(SRA,		fields.rd, true, false)
+WRITEBACK(XOR,		fields.rd, true, false)
+WRITEBACK(OR,		fields.rd, true, false)
+WRITEBACK(AND,		fields.rd, true, false)
+WRITEBACK(ADDW,		fields.rd, true, false)
+WRITEBACK(SUBW,		fields.rd, true, false)
+WRITEBACK(SLLW,		fields.rd, true, false)
+WRITEBACK(SRLW,		fields.rd, true, false)
+WRITEBACK(SRAW,		fields.rd, true, false)
+

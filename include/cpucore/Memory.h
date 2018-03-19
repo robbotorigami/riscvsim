@@ -97,4 +97,22 @@ private:
 	Signal<inscode>& instruction;
 };
 
+class DataMemory: public ClockableObject{
+public:
+	DataMemory(Memory& mem, Signal<regdata>& address, Signal<regdata>&writeData,
+			Signal<BitCount_t>& bitcount,
+			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData);
+	~DataMemory();
+
+	void clock(ClockEdge edge);
+private:
+	Memory& mem;
+	Signal<regdata>& address;
+	Signal<regdata>& writeData;
+	Signal<BitCount_t>& bitcount;
+	Signal<bool>& memWrite;
+	Signal<bool>& memRead;
+	Signal<regdata>&readData;
+};
+
 #endif /* INCLUDE_CPUCORE_MEMORY_H_ */

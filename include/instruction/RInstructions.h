@@ -20,7 +20,6 @@ public:
 	regaddress getRS1();
 	regaddress getRS2();
 
-	ALUSrc_t getALUSrc();
 protected:
 	void parseFields(inscode code);
 	struct Fields{
