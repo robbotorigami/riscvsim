@@ -10,7 +10,7 @@
 using namespace std;
 int main(){
 	Memory mem;
-	mem.buildFromImage("../resource/ins_assembly_test.img");
+	mem.buildFromImage("resource/ins_assembly_test.img");
 	cout << "\n\n\n\n############################## CYCLE #" << 0 << " ############################################" << endl;
 	RISCVCpu cpu(mem);
 
