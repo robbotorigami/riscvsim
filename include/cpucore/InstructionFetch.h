@@ -13,18 +13,6 @@
 #include "cpucore/cputypes.h"
 #include "cpucore/Memory.h"
 
-/*!
- * \brief Data type to hold the values buffered between the IF and ID stages
- */
-struct IFIDRegister: public ClockableObject{
-	IFIDRegister(Signal<pcval_t> pcvalIn, Signal<pcval_t> pcvalOut,
-				 Signal<inscode> insIn, Signal<pcval_t> insOut);
-	void clock(ClockEdge edge);
-
-	//! The program counter value of this instruction
-	Register<pcval_t> pcval;
-	Register<inscode> instruction;
-};
 
 /*!
  * \brief Object to hold the instruction fetch stage
