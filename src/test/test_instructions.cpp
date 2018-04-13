@@ -94,7 +94,7 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 	INSTRUCTIONTESTS(JALR)
 		arg1 = 10;
 		arg2 = 10;
-		REQUIRE(output == 10);
+		REQUIRE(output == 10 + 4);
 		REQUIRE(zeroSignal == true);
 	}
 	INSTRUCTIONTESTS(LB)
@@ -248,7 +248,7 @@ TEST_CASE("Test ALU functions correctly", "[signals][alu]"){
 	INSTRUCTIONTESTS(JAL)
 		arg1 = 3;
 		arg2 = 1;
-		REQUIRE(output == 3);
+		REQUIRE(output == 3 + 4);
 		REQUIRE(zeroSignal == true);
 	}
 	INSTRUCTIONTESTS(ADD)

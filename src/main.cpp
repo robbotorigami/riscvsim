@@ -14,7 +14,7 @@ int main(){
 	cout << "\n\n\n\n############################## CYCLE #" << 0 << " ############################################" << endl;
 	RISCVCpu cpu(mem);
 
-	for (int cycle = 1; cycle < 300; cycle++){
+	for (int cycle = 1; cycle < 100000; cycle++){
 		cout << "\n\n\n\n############################## CYCLE #" << cycle << " ############################################" << endl;
 		cpu.cycleSystem();
 	}

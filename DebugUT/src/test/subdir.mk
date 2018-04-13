@@ -44,7 +44,7 @@ CPP_DEPS += \
 src/test/%.o: ../src/test/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -std=c++0x -DSILENT -I"/home/cyborg9/Documents/riscvsim/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -MT "$@" -o "$@" "$<"
+	g++ -std=c++0x -DSILENT -I"/home/cyborg9/riscvsim/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT "$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

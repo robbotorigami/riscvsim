@@ -29,6 +29,7 @@ TEST_CASE("Test Instruction Fetch", "[cpucore][IF]"){
 			CAPTURE(j);
 			REQUIRE(pcOut == j);
 			REQUIRE(instructionOut == i);
+			ifs.clock(FALLING);
 			ifs.clock(RISING);
 			j+=4;
 		}
@@ -45,11 +46,13 @@ TEST_CASE("Test Instruction Fetch", "[cpucore][IF]"){
 				CAPTURE(j);
 				REQUIRE(pcOut == j);
 				REQUIRE(instructionOut == i);
+				ifs.clock(FALLING);
 				ifs.clock(RISING);
 				j+=4;
 			}
 			pcALU = 0;
 			PCSrc = true;
+			ifs.clock(FALLING);
 			ifs.clock(RISING);
 		}
 	}

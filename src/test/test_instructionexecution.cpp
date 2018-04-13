@@ -119,7 +119,7 @@ TEST_CASE("Test execute stage functions correctly", "[signals][alu]"){
 		immed = 5;
 		REQUIRE(zeroSignal == true);
 		REQUIRE(pcOut == data1 + immed);
-		REQUIRE(aluResOut == pcIn);
+		REQUIRE(aluResOut == pcIn + 4);
 	}
 	INSTRUCTIONTESTS(LB)
 		data1 = 10;
@@ -293,7 +293,7 @@ TEST_CASE("Test execute stage functions correctly", "[signals][alu]"){
 		immed = 5;
 		REQUIRE(zeroSignal == true);
 		REQUIRE(pcOut == pcIn + immed);
-		REQUIRE(aluResOut == pcIn);
+		REQUIRE(aluResOut == pcIn + 4);
 	}
 	INSTRUCTIONTESTS(ADD)
 		data1 = 10;

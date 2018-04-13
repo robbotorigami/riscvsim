@@ -56,5 +56,6 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
+.SECONDARY:
 
 -include ../makefile.targets

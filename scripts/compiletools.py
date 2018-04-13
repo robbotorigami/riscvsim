@@ -39,9 +39,9 @@ class codeobject:
             symbols = struct.unpack('I' * nsym, textsection.data())
 
         #Clean up files
-        os.system('rm {filename}.{ext}'.format(filename=filename, ext=ext))
-        os.system('rm {filename}.o'.format(filename=filename))
-        os.system('rm {filename}'.format(filename=filename))
+        #os.system('rm {filename}.{ext}'.format(filename=filename, ext=ext))
+        #os.system('rm {filename}.o'.format(filename=filename))
+        #os.system('rm {filename}'.format(filename=filename))
 
         return symbols
 
@@ -81,22 +81,6 @@ class codeobject:
 
 
 if __name__ == '__main__':
-    cmds = ["ADD x1, x13, x15",
-            "SUB x11, x6, x7",
-            "SLL x2, x4, x8",
-            "SLT x12, x7, x5",
-            "SLTU x16, x10, x9",
-            "XOR x9, x14, x4",
-            "SRL x1, x6, x3",
-            "SRA x3, x12, x15",
-            "OR x2, x15, x3",
-            "AND x15, x13, x10",
-            "ADDW x2, x8, x11",
-            "SUBW x8, x9, x14",
-            "SLLW x3, x5, x2",
-            "SRLW x10, x6, x7",
-            "SRAW x2, x4, x9"]
-
-    co = codeobject()
-    co.addstring('\n'.join(cmds) + '\n')
-    print(['0x{:08x}'.format(i) for i in co.compile()])
+    co = codeobject(ctype = 'c')
+    co.addstring('int main(){return 0;}')
+    bytes = co.compile()
