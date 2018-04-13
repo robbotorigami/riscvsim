@@ -10,6 +10,7 @@
 
 #include <instruction/0_Instructions.h>
 #include "cpucore/Signals.h"
+#include <cstdint>
 
 class InstructionParser: public DrivenObject{
 public:
@@ -155,6 +156,38 @@ public:
 private:
 	Register<Instruction*>* insReg;
 	Signal<Instruction*> insFinal;
+};
+
+
+class ForwardingModule: public DrivenObject{
+public:
+	ForwardingModule(Signal<Instruction*>& EXMEMInstruction, Signal<Instruction*>& MEMWBInstruction,
+			Signal<regaddress>& rs, Signal<uint8_t>& selection);
+	~ForwardingModule();
+
+	void computeSignals();
+
+private:
+	Signal<Instruction*>& EXMEMInstruction;
+	Signal<Instruction*>& MEMWBInstruction;
+	Signal<regaddress>& rs;
+	Signal<uint8_t>& selection;
+};
+
+class ForwardingMux: public DrivenObject{
+public:
+	ForwardingMux(Signal<regdata>& IDInput, Signal<regdata>& EXInput, Signal<regdata>& MEMInput,
+			Signal<uint8_t>& selection, Signal<regdata>& output);
+	~ForwardingMux();
+
+	void computeSignals();
+
+private:
+	Signal<regdata>& IDInput;
+	Signal<regdata>& EXInput;
+	Signal<regdata>& MEMInput;
+	Signal<uint8_t>& selection;
+	Signal<regdata>& output;
 };
 
 #endif /* INCLUDE_INSTRUCTION_INSTRUCTIONSIGNALS_H_ */

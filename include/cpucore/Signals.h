@@ -162,17 +162,22 @@ public:
 	Register(Signal<datatype>& input,
 			Signal<datatype>& output)
 	:input(input),
+	 stored(0),
 	 output(output)
 	{
 	}
 
 	void clock(ClockEdge edge){
-		output = static_cast<datatype>(input);
+		if(edge == RISING)
+			stored = input;
+		if(edge == FALLING)
+			output = stored;
 	}
 
 private:
 	//! Input to the register
 	Signal<datatype>& input;
+	datatype stored;
 	//! Output of the register
 	Signal<datatype>& output;
 };

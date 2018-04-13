@@ -43,11 +43,9 @@ TEST_CASE("Test that the register functions correctly", "[signals][mux]"){
 	Register<uint32_t> r(sigin, sigout);
 	sigin = 202;
 	r.clock(RISING);
+	REQUIRE(sigout == 0);
+	r.clock(FALLING);
 	REQUIRE(sigout == 202);
-	sigin = 404;
-	REQUIRE(sigout == 202);
-	r.clock(RISING);
-	REQUIRE(sigout == 404);
 }
 
 TEST_CASE("Test that the adder functions correctly", "[signals][adder]"){

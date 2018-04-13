@@ -14,19 +14,21 @@ EXStage::EXStage(
 		Signal<regdata>& readData2In,
 		Signal<regdata>& immediateIn,
 		Signal<Instruction*>& instructionIn,
+		Signal<Instruction*>& instructionOut,
 		Signal<pcval_t>& pcOut,
 		Signal<bool>& zeroSignalOut,
 		Signal<regdata>& aluResOut,
 		Signal<regdata>& writeData
 	)
 :pcIn(pcIn), readData1In(readData1In), readData2In(readData2In),
- immediateIn(immediateIn), instructionIn(instructionIn),
+ immediateIn(immediateIn), instructionIn(instructionIn), instructionOut(instructionOut),
  pcOut(pcOut), zeroSignalOut(zeroSignalOut), aluResOut(aluResOut), writeData(writeData)
 {
 	c1 = new Converter<regdata, pcval_t>(immediateIn, immedInConv);
 	c2 = new Converter<regdata, pcval_t>(readData1In, readDataInConv);
 	c3 = new Converter<pcval_t, regdata>(pcIn, pcInConv);
 	cu1 = new Coupler<regdata>(readData2In, writeData);
+	cu2 = new Coupler<Instruction*>(instructionIn, instructionOut);
 	asGen = new ArgumentSelectionGenerator(instructionIn, aluSrc1, aluSrc2, pcSrc);
 	pcSelector = new Mux<pcval_t>(pcIn, readDataInConv, pcSrc, pcArg1);
 	ad = new Adder<pcval_t>(pcArg1, immedInConv, pcOut);
@@ -48,6 +50,7 @@ EXStage::~EXStage(){
 	delete c2;
 	delete c3;
 	delete cu1;
+	delete cu2;
 }
 
 void EXStage::clock(ClockEdge edge){

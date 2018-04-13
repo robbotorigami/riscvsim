@@ -12,7 +12,8 @@ src/cpucore/RISCVCpu.d src/cpucore/RISCVCpu.o: \
  /home/cyborg9/riscvsim/include/cpucore/Memory.h \
  /home/cyborg9/riscvsim/include/cpucore/InstructionExecute.h \
  /home/cyborg9/riscvsim/include/cpucore/InstructionMemory.h \
- /home/cyborg9/riscvsim/include/cpucore/InstructionWriteback.h
+ /home/cyborg9/riscvsim/include/cpucore/InstructionWriteback.h \
+ /home/cyborg9/riscvsim/include/cpucore/PipelineRegisters.h
 
 /home/cyborg9/riscvsim/include/cpucore/RISCVCpu.h:
 
@@ -39,3 +40,5 @@ src/cpucore/RISCVCpu.d src/cpucore/RISCVCpu.o: \
 /home/cyborg9/riscvsim/include/cpucore/InstructionMemory.h:
 
 /home/cyborg9/riscvsim/include/cpucore/InstructionWriteback.h:
+
+/home/cyborg9/riscvsim/include/cpucore/PipelineRegisters.h:

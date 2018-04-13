@@ -13,8 +13,8 @@ IFStage::IFStage(Memory& mem, Signal<pcval_t>& pcALU, Signal<bool>& PCSrc,
 :mem(mem), pcALU(pcALU), PCSrc(PCSrc), pcOut(pcOut), instructionOut(instructionOut)
 {
 	pcMux = new Mux<pcval_t>(pcIncrement, pcALU, PCSrc, pcIn);
-	ppc = new Register<pcval_t>(pcIn, pcIntermed);
-	pc = new Register<pcval_t>(pcIntermed, pcVal);
+	//ppc = new Register<pcval_t>(pcIn, pcIntermed);
+	pc = new Register<pcval_t>(pcIn, pcVal);
 	inssize = sizeof(pcval_t);
 	pcIncrementer = new Adder<pcval_t>(pcVal, inssize, pcIncrement);
 	im = new InstructionMemory(mem, pcVal, instruction);
@@ -37,10 +37,9 @@ IFStage::~IFStage(){
 }
 
 void IFStage::clock(ClockEdge edge){
-	if(edge == FALLING){
-		ppc->clock(edge);
-	}else{
-		pc->clock(edge);
+	ClockEdge inv = edge == FALLING ? RISING : FALLING;
+	pc->clock(edge);
+	if(edge == RISING){
 		INFORMATION("PC: " << static_cast<pcval_t>(pcOut));
 	}
 }

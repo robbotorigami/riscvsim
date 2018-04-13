@@ -15,20 +15,6 @@
 #include "cpucore/RegisterFile.h"
 
 /*!
- * \brief Data type to hold the values buffered between the ID and EX stages
- */
-struct IDEXRegister: public ClockableObject{
-	void clock(ClockEdge edge);
-
-	//! The program counter value of this instruction
-	Register<pcval_t> pcval;
-	Register<Instruction*> instruction;
-	Register<regdata> readData1;
-	Register<regdata> readData2;
-	Register<regdata> immediate;
-};
-
-/*!
  * \brief Object to hold the instruction decode stage
  */
 class IDStage: public ClockableObject{

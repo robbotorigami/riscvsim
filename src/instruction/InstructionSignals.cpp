@@ -6,12 +6,14 @@
  */
 
 #include "instruction/InstructionSignals.h"
+#include "instruction/IInstructions.h"
 #include "config.h"
 
 InstructionParser::InstructionParser(Signal<inscode>& inscodeIn, Signal<Instruction*>& instructionOut)
 :inscodeIn(inscodeIn), instructionOut(instructionOut)
 {
 	inscodeIn.registerDriven(this);
+	instructionOut = InstructionFactory::parseInstruction(19);
 }
 
 InstructionParser::~InstructionParser(){
@@ -20,7 +22,6 @@ InstructionParser::~InstructionParser(){
 
 void InstructionParser::computeSignals(){
 	instructionOut = InstructionFactory::parseInstruction(inscodeIn);
-	INFORMATION("Next Instuction: " << static_cast<Instruction*>(instructionOut)->asString());
 }
 
 
@@ -180,7 +181,67 @@ InstructionSink::~InstructionSink(){
 
 void InstructionSink::clock(ClockEdge edge){
 	insReg->clock(edge);
-	if(static_cast<Instruction*>(insFinal) != nullptr){
-		delete static_cast<Instruction*>(insFinal);
+	if(edge == FALLING){
+		if(static_cast<Instruction*>(insFinal) != nullptr){
+			delete static_cast<Instruction*>(insFinal);
+		}
 	}
 }
+
+ForwardingModule::ForwardingModule(Signal<Instruction*>& EXMEMInstruction, Signal<Instruction*>& MEMWBInstruction,
+		Signal<regaddress>& rs, Signal<uint8_t>& selection)
+:EXMEMInstruction(EXMEMInstruction), MEMWBInstruction(MEMWBInstruction),
+ rs(rs), selection(selection)
+{
+	EXMEMInstruction.registerDriven(this);
+	MEMWBInstruction.registerDriven(this);
+	rs.registerDriven(this);
+}
+
+ForwardingModule::~ForwardingModule(){
+	EXMEMInstruction.unregisterDriven(this);
+	MEMWBInstruction.unregisterDriven(this);
+	rs.unregisterDriven(this);
+}
+
+void ForwardingModule::computeSignals(){
+	regaddress rd1 = static_cast<Instruction*>(EXMEMInstruction)->getRD();
+	bool wb1 = static_cast<Instruction*>(EXMEMInstruction)->getRegWriteSignal();
+	regaddress rd2 = static_cast<Instruction*>(MEMWBInstruction)->getRD();
+	bool wb2 = static_cast<Instruction*>(MEMWBInstruction)->getRegWriteSignal();
+	if(rd1 != 0 && wb1 && rd1 == rs){
+		selection = 1;
+	}else if(rd2 != 0 && wb2 && rd2 == rs){
+		selection = 2;
+	}else{
+		selection = 0;
+	}
+}
+
+ForwardingMux::ForwardingMux(Signal<regdata>& IDInput, Signal<regdata>& EXInput, Signal<regdata>& MEMInput,
+		Signal<uint8_t>& selection, Signal<regdata>& output)
+:IDInput(IDInput), EXInput(EXInput), MEMInput(MEMInput), selection(selection), output(output)
+{
+	IDInput.registerDriven(this);
+	EXInput.registerDriven(this);
+	MEMInput.registerDriven(this);
+	selection.registerDriven(this);
+}
+
+ForwardingMux::~ForwardingMux(){
+	IDInput.unregisterDriven(this);
+	EXInput.unregisterDriven(this);
+	MEMInput.unregisterDriven(this);
+	selection.unregisterDriven(this);
+}
+
+void ForwardingMux::computeSignals(){
+	if(selection == 0){
+		output = IDInput;
+	}else if (selection == 1){
+		output = EXInput;
+	}else if (selection == 2){
+		output = MEMInput;
+	}
+}
+

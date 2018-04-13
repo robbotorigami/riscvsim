@@ -13,19 +13,6 @@
 #include "instruction/InstructionSignals.h"
 #include "cpucore/cputypes.h"
 
-/*!
- * \brief Data type to hold the values buffered between the ID and EX stages
- */
-struct EXMEMRegister: public ClockableObject{
-	void clock(ClockEdge edge);
-
-	//! The program counter value of this instruction
-	Register<pcval_t> pcval;
-	Register<Instruction*> instruction;
-	Register<regdata> readData1;
-	Register<regdata> readData2;
-	Register<regdata> immediate;
-};
 
 /*!
  * \brief Object to hold the execution stage
@@ -38,6 +25,7 @@ public:
 		Signal<regdata>& readData2In,
 		Signal<regdata>& immediateIn,
 		Signal<Instruction*>& instructionIn,
+		Signal<Instruction*>& instructionOut,
 		Signal<pcval_t>& pcOut,
 		Signal<bool>& zeroSignalOut,
 		Signal<regdata>& aluResOut,
@@ -62,6 +50,7 @@ private:
 	Mux<regdata>* aluarg2Selector;
 
 	Coupler<regdata>* cu1;
+	Coupler<Instruction*>* cu2;
 
 	Converter<regdata, pcval_t>* c1;
 	Signal<pcval_t> immedInConv;
@@ -84,6 +73,7 @@ private:
 	Signal<regdata>& readData2In;
 	Signal<regdata>& immediateIn;
 	Signal<Instruction*>& instructionIn;
+	Signal<Instruction*>& instructionOut;
 	Signal<pcval_t>& pcOut;
 	Signal<bool>& zeroSignalOut;
 	Signal<regdata>& aluResOut;

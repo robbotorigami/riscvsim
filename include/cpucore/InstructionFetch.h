@@ -26,7 +26,7 @@ public:
 	void clock(ClockEdge edge);
 private:
 	/////////// INTERNAL //////////////
-	Register<pcval_t>* ppc;
+	//Register<pcval_t>* ppc;
 	//! The program counter
 	Register<pcval_t>* pc;
 	//! Instruction Interface to memory
@@ -50,7 +50,7 @@ private:
 	//! Coupler for internal and external signals
 	Coupler<inscode>* c2;
 
-	Signal<pcval_t> pcIntermed;
+	//Signal<pcval_t> pcIntermed;
 
 	/////////// EXTERNAL ///////////////
 	//! The memory

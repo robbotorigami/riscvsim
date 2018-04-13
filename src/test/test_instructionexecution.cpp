@@ -21,7 +21,7 @@
 
 TEST_CASE("Test execute stage functions correctly", "[signals][alu]"){
 	Signal<regdata> data1, data2, immed;
-	Signal<Instruction*> ins;
+	Signal<Instruction*> ins, insOut;
 	Signal<bool> zeroSignal;
 	Signal<regdata> aluResOut, writeData;
 	Signal<pcval_t> pcIn, pcOut;
@@ -29,7 +29,7 @@ TEST_CASE("Test execute stage functions correctly", "[signals][alu]"){
 	pcIn = 0;
 	immed = 0;
 
-	EXStage ex(pcIn, data1, data2, immed, ins, pcOut, zeroSignal, aluResOut, writeData);
+	EXStage ex(pcIn, data1, data2, immed, ins, insOut, pcOut, zeroSignal, aluResOut, writeData);
 
 
 	INSTRUCTIONTESTS(BEQ)

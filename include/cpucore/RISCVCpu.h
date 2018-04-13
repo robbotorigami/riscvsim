@@ -13,6 +13,7 @@
 #include "cpucore/InstructionExecute.h"
 #include "cpucore/InstructionMemory.h"
 #include "cpucore/InstructionWriteback.h"
+#include "cpucore/PipelineRegisters.h"
 
 /*!
  * \brief Main container for the CPU
@@ -31,6 +32,11 @@ private:
 	EXStage* exs;
 	MEMStage* mems;
 	WBStage* wbs;
+
+	IFIDRegister ifidr;
+	IDEXRegister idexr;
+	EXMEMRegister exmemr;
+	MEMWBRegister memwbr;
 
 	Coupler<pcval_t>* c1;
 

@@ -10,6 +10,7 @@ CPP_SRCS += \
 ../src/cpucore/InstructionMemory.cpp \
 ../src/cpucore/InstructionWriteback.cpp \
 ../src/cpucore/Memory.cpp \
+../src/cpucore/PipelineRegisters.cpp \
 ../src/cpucore/RISCVCpu.cpp \
 ../src/cpucore/RegisterFile.cpp \
 ../src/cpucore/Signals.cpp 
@@ -21,6 +22,7 @@ OBJS += \
 ./src/cpucore/InstructionMemory.o \
 ./src/cpucore/InstructionWriteback.o \
 ./src/cpucore/Memory.o \
+./src/cpucore/PipelineRegisters.o \
 ./src/cpucore/RISCVCpu.o \
 ./src/cpucore/RegisterFile.o \
 ./src/cpucore/Signals.o 
@@ -32,6 +34,7 @@ CPP_DEPS += \
 ./src/cpucore/InstructionMemory.d \
 ./src/cpucore/InstructionWriteback.d \
 ./src/cpucore/Memory.d \
+./src/cpucore/PipelineRegisters.d \
 ./src/cpucore/RISCVCpu.d \
 ./src/cpucore/RegisterFile.d \
 ./src/cpucore/Signals.d 
