@@ -25,6 +25,10 @@ public:
 		Signal<regdata>& readData2In,
 		Signal<regdata>& immediateIn,
 		Signal<Instruction*>& instructionIn,
+		Signal<Instruction*>& instructionEXMEMIn,
+		Signal<Instruction*>& instructionMEMWBIn,
+		Signal<regdata>& writeDataEXMEMIn,
+		Signal<regdata>& writeDataMEMWBIn,
 		Signal<Instruction*>& instructionOut,
 		Signal<pcval_t>& pcOut,
 		Signal<bool>& zeroSignalOut,
@@ -52,6 +56,9 @@ private:
 	Coupler<regdata>* cu1;
 	Coupler<Instruction*>* cu2;
 
+	Coupler<uint8_t>* cu3;
+	Coupler<uint8_t>* cu4;
+
 	Converter<regdata, pcval_t>* c1;
 	Signal<pcval_t> immedInConv;
 	Converter<regdata, pcval_t>* c2;
@@ -67,12 +74,24 @@ private:
 	Signal<bool> aluSrc1;
 	Signal<bool> aluSrc2;
 
+	ForwardingModule* fm;
+	Signal<uint8_t> fmsig1;
+	ForwardingMux* fmux1;
+	Signal<regdata> freadData1;
+	Signal<uint8_t> fmsig2;
+	ForwardingMux* fmux2;
+	Signal<regdata> freadData2;
+
 	/////////// EXTERNAL ///////////////
 	Signal<pcval_t>& pcIn;
 	Signal<regdata>& readData1In;
 	Signal<regdata>& readData2In;
 	Signal<regdata>& immediateIn;
 	Signal<Instruction*>& instructionIn;
+	Signal<Instruction*>& instructionEXMEMIn;
+	Signal<Instruction*>& instructionMEMWBIn;
+	Signal<regdata>& writeDataEXMEMIn;
+	Signal<regdata>& writeDataMEMWBIn;
 	Signal<Instruction*>& instructionOut;
 	Signal<pcval_t>& pcOut;
 	Signal<bool>& zeroSignalOut;

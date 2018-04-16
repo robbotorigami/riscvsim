@@ -101,7 +101,8 @@ class DataMemory: public ClockableObject{
 public:
 	DataMemory(Memory& mem, Signal<regdata>& address, Signal<regdata>&writeData,
 			Signal<BitCount_t>& bitcount,
-			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData);
+			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData,
+			Signal<bool>& stall);
 	~DataMemory();
 
 	void clock(ClockEdge edge);
@@ -113,6 +114,8 @@ private:
 	Signal<bool>& memWrite;
 	Signal<bool>& memRead;
 	Signal<regdata>&readData;
+	Signal<bool>& stall;
+	size_t count;
 };
 
 #endif /* INCLUDE_CPUCORE_MEMORY_H_ */

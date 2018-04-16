@@ -12,6 +12,10 @@
 #include <vector>
 #include "cpucore/cputypes.h"
 
+#define NOP_CODE (19ul)
+
+#define NOP (InstructionFactory::parseInstruction(NOP_CODE))
+
 /*!
  * \brief Base class for all Instructions, inheirets common functionality
  */

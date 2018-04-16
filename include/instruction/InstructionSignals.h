@@ -162,7 +162,7 @@ private:
 class ForwardingModule: public DrivenObject{
 public:
 	ForwardingModule(Signal<Instruction*>& EXMEMInstruction, Signal<Instruction*>& MEMWBInstruction,
-			Signal<regaddress>& rs, Signal<uint8_t>& selection);
+			Signal<Instruction*>& IDEXInstruction, Signal<uint8_t>& selection1, Signal<uint8_t>& selection2);
 	~ForwardingModule();
 
 	void computeSignals();
@@ -170,8 +170,9 @@ public:
 private:
 	Signal<Instruction*>& EXMEMInstruction;
 	Signal<Instruction*>& MEMWBInstruction;
-	Signal<regaddress>& rs;
-	Signal<uint8_t>& selection;
+	Signal<Instruction*>& IDEXInstruction;
+	Signal<uint8_t>& selection1;
+	Signal<uint8_t>& selection2;
 };
 
 class ForwardingMux: public DrivenObject{

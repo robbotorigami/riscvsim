@@ -189,32 +189,41 @@ void InstructionSink::clock(ClockEdge edge){
 }
 
 ForwardingModule::ForwardingModule(Signal<Instruction*>& EXMEMInstruction, Signal<Instruction*>& MEMWBInstruction,
-		Signal<regaddress>& rs, Signal<uint8_t>& selection)
+		Signal<Instruction*>& IDEXInstruction, Signal<uint8_t>& selection1, Signal<uint8_t>& selection2)
 :EXMEMInstruction(EXMEMInstruction), MEMWBInstruction(MEMWBInstruction),
- rs(rs), selection(selection)
+ IDEXInstruction(IDEXInstruction), selection1(selection1), selection2(selection2)
 {
+	IDEXInstruction.registerDriven(this);
 	EXMEMInstruction.registerDriven(this);
 	MEMWBInstruction.registerDriven(this);
-	rs.registerDriven(this);
 }
 
 ForwardingModule::~ForwardingModule(){
+	IDEXInstruction.unregisterDriven(this);
 	EXMEMInstruction.unregisterDriven(this);
 	MEMWBInstruction.unregisterDriven(this);
-	rs.unregisterDriven(this);
 }
 
 void ForwardingModule::computeSignals(){
+	regaddress rs1 = static_cast<Instruction*>(IDEXInstruction)->getRS1();
+	regaddress rs2 = static_cast<Instruction*>(IDEXInstruction)->getRS2();
 	regaddress rd1 = static_cast<Instruction*>(EXMEMInstruction)->getRD();
 	bool wb1 = static_cast<Instruction*>(EXMEMInstruction)->getRegWriteSignal();
 	regaddress rd2 = static_cast<Instruction*>(MEMWBInstruction)->getRD();
 	bool wb2 = static_cast<Instruction*>(MEMWBInstruction)->getRegWriteSignal();
-	if(rd1 != 0 && wb1 && rd1 == rs){
-		selection = 1;
-	}else if(rd2 != 0 && wb2 && rd2 == rs){
-		selection = 2;
+	if(rd1 != 0 && wb1 && rd1 == rs1){
+		selection1 = 1;
+	}else if(rd2 != 0 && wb2 && rd2 == rs1){
+		selection1 = 2;
 	}else{
-		selection = 0;
+		selection1 = 0;
+	}
+	if(rd1 != 0 && wb1 && rd1 == rs2){
+		selection2 = 1;
+	}else if(rd2 != 0 && wb2 && rd2 == rs2){
+		selection2 = 2;
+	}else{
+		selection2 = 0;
 	}
 }
 
@@ -237,11 +246,11 @@ ForwardingMux::~ForwardingMux(){
 
 void ForwardingMux::computeSignals(){
 	if(selection == 0){
-		output = IDInput;
+		output = static_cast<regdata>(IDInput);
 	}else if (selection == 1){
-		output = EXInput;
+		output = static_cast<regdata>(EXInput);
 	}else if (selection == 2){
-		output = MEMInput;
+		output = static_cast<regdata>(MEMInput);
 	}
 }
 

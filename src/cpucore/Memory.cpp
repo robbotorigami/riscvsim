@@ -62,11 +62,12 @@ void InstructionMemory::computeSignals(){
 
 DataMemory::DataMemory(Memory& mem, Signal<regdata>& address, Signal<regdata>&writeData,
 			Signal<BitCount_t>& bitcount,
-			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData)
+			Signal<bool>& memWrite, Signal<bool>& memRead, Signal<regdata>&readData,
+			Signal<bool>& stall)
 :mem(mem), address(address), writeData(writeData), bitcount(bitcount),
- memWrite(memWrite), memRead(memRead), readData(readData)
+ memWrite(memWrite), memRead(memRead), readData(readData), stall(stall)
 {
-
+	count = 0;
 }
 
 DataMemory::~DataMemory(){
@@ -74,26 +75,39 @@ DataMemory::~DataMemory(){
 }
 
 void DataMemory::clock(ClockEdge edge){
-	if(memRead){
-		if(bitcount == BIT8){
-			readData = mem.read<uint8_t>(address);
-		}else if(bitcount == BIT16){
-			readData = mem.read<uint16_t>(address);
-		}else if(bitcount == BIT32){
-			readData = mem.read<uint32_t>(address);
-		}else if(bitcount == BIT64){
-			readData = mem.read<uint64_t>(address);
+	if(edge == RISING){
+	}else{
+		if(memRead){
+			if(bitcount == BIT8){
+				readData = mem.read<uint8_t>(address);
+			}else if(bitcount == BIT16){
+				readData = mem.read<uint16_t>(address);
+			}else if(bitcount == BIT32){
+				readData = mem.read<uint32_t>(address);
+			}else if(bitcount == BIT64){
+				readData = mem.read<uint64_t>(address);
+			}
 		}
-	}
-	if(memWrite){
-		if(bitcount == BIT8){
-			mem.write<uint8_t>(address, writeData);
-		}else if(bitcount == BIT16){
-			mem.write<uint16_t>(address, writeData);
-		}else if(bitcount == BIT32){
-			mem.write<uint32_t>(address, writeData);
-		}else if(bitcount == BIT64){
-			mem.write<uint64_t>(address, writeData);
+		if(memWrite){
+			if(bitcount == BIT8){
+				mem.write<uint8_t>(address, writeData);
+			}else if(bitcount == BIT16){
+				mem.write<uint16_t>(address, writeData);
+			}else if(bitcount == BIT32){
+				mem.write<uint32_t>(address, writeData);
+			}else if(bitcount == BIT64){
+				mem.write<uint64_t>(address, writeData);
+			}
+		}
+		if(memRead && !stall){
+			stall = true;
+			count = 1;
+		}
+		if(count == 0){
+			stall = false;
+		}
+		if(stall){
+			count--;
 		}
 	}
 }

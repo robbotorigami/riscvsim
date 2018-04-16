@@ -20,7 +20,8 @@
 class IFStage: public ClockableObject{
 public:
 	IFStage(Memory& mem, Signal<pcval_t>& pcALU, Signal<bool>& PCSrc,
-			Signal<pcval_t>& pcOut, Signal<inscode>& instructionOut);
+			Signal<pcval_t>& pcOut, Signal<inscode>& instructionOut,
+			Signal<bool>& stall);
 	~IFStage();
 
 	void clock(ClockEdge edge);
@@ -49,6 +50,7 @@ private:
 	Coupler<pcval_t>* c1;
 	//! Coupler for internal and external signals
 	Coupler<inscode>* c2;
+	bool stalled;
 
 	//Signal<pcval_t> pcIntermed;
 
@@ -63,6 +65,7 @@ private:
 	Signal<pcval_t>& pcOut;
 	//! Current instruction
 	Signal<inscode>& instructionOut;
+	Signal<bool>& stall;
 
 };
 

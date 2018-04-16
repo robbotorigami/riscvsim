@@ -40,6 +40,17 @@ private:
 
 	Coupler<pcval_t>* c1;
 
+	Coupler<bool>* cu1;
+	Coupler<bool>* cu2;
+	Coupler<bool>* cu3;
+	Coupler<bool>* cu4;
+	Coupler<bool>* cu5;
+	Coupler<bool>* cu6;
+	Coupler<bool>* cu7;
+
+
+	Signal<bool> stall;
+
 	Signal<pcval_t> pcMEMIF;
 	Signal<bool> pcSRCMEMIF;
 	Signal<pcval_t> pcIFID;

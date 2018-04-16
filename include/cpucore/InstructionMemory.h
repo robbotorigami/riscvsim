@@ -27,7 +27,8 @@ public:
 		Signal<Instruction*>& instructionOut,
 		Signal<regdata>& aluResOut,
 		Signal<regdata>& readDataOut,
-		Signal<bool>& pcSRCOut
+		Signal<bool>& pcSRCOut,
+		Signal<bool>& stallOut
 	);
 	~MEMStage();
 
@@ -57,6 +58,7 @@ private:
 	Signal<regdata>& aluResOut;
 	Signal<regdata>& readDataOut;
 	Signal<bool>& pcSRCOut;
+	Signal<bool>& stallOut;
 };
 
 

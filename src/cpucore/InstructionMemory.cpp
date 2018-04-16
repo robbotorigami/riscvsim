@@ -16,7 +16,8 @@ MEMStage::MEMStage(
 		Signal<Instruction*>& instructionOut,
 		Signal<regdata>& aluResOut,
 		Signal<regdata>& readDataOut,
-		Signal<bool>& pcSRCOut
+		Signal<bool>& pcSRCOut,
+		Signal<bool>& stallOut
 	)
 :instructionIn(instructionIn),
  zeroSignal(zeroSignal),
@@ -25,12 +26,13 @@ MEMStage::MEMStage(
  instructionOut(instructionOut),
  aluResOut(aluResOut),
  readDataOut(readDataOut),
- pcSRCOut(pcSRCOut)
+ pcSRCOut(pcSRCOut),
+ stallOut(stallOut)
 {
 	mcgen = new MemoryControlGenerator(instructionIn, memRead, memWrite, bitcount);
 	spp = new StorePreprocessor(instructionIn, writeDataIn, processedSD);
 	lpp = new LoadPostprocessor(instructionIn, unprocessedLD, readDataOut);
-	dmem = new DataMemory(mem, aluResIn, processedSD, bitcount, memWrite, memRead, unprocessedLD);
+	dmem = new DataMemory(mem, aluResIn, processedSD, bitcount, memWrite, memRead, unprocessedLD, stallOut);
 	c1 = new Coupler<bool>(zeroSignal, pcSRCOut);
 	c2 = new Coupler<regdata>(aluResIn, aluResOut);
 	c3 = new Coupler<Instruction*>(instructionIn, instructionOut);

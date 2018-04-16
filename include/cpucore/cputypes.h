@@ -8,6 +8,9 @@
 #ifndef INCLUDE_CPUCORE_CPUTYPES_H_
 #define INCLUDE_CPUCORE_CPUTYPES_H_
 
+#include <cstdint>
+#include <cstdlib>
+
 typedef uint32_t memaddress;
 typedef memaddress pcval_t;
 

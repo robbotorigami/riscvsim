@@ -51,10 +51,11 @@ void RegisterFile::clock(ClockEdge edge){
 		if(regWrite && writeRegister != 0){
 			registers[static_cast<regaddress>(writeRegister)] = writeData;
 		}
+		computeSignals();
+		printInfo();
 	}
 	if(edge == FALLING){
 		computeSignals();
-		printInfo();
 	}
 }
 

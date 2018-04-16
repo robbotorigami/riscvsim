@@ -20,9 +20,14 @@
 /*!
  * \brief Data type to hold the values buffered between the IF and ID stages
  */
-struct IFIDRegister: public ClockableObject{
+struct IFIDRegister: public ClockableObject, public DrivenObject{
 	IFIDRegister();
+	~IFIDRegister();
 	void clock(ClockEdge edge);
+	void computeSignals();
+
+	Signal<bool> stall;
+	Signal<bool> flush;
 
 	//! The program counter value of this instruction
 	FIELD(pcval, pcval_t)
@@ -33,9 +38,14 @@ struct IFIDRegister: public ClockableObject{
 /*!
  * \brief Data type to hold the values buffered between the ID and EX stages
  */
-struct IDEXRegister: public ClockableObject{
+struct IDEXRegister: public ClockableObject, public DrivenObject{
 	IDEXRegister();
+	~IDEXRegister();
 	void clock(ClockEdge edge);
+	void computeSignals();
+
+	Signal<bool> stall;
+	Signal<bool> flush;
 
 	//! The program counter value of this instruction
 	FIELD(pcval, pcval_t)
@@ -52,6 +62,9 @@ struct IDEXRegister: public ClockableObject{
 struct EXMEMRegister: public ClockableObject{
 	EXMEMRegister();
 	void clock(ClockEdge edge);
+
+	Signal<bool> stall;
+	bool stalled;
 
 	//! The program counter value of this instruction
 	FIELD(pcval, pcval_t)

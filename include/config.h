@@ -10,14 +10,23 @@
 
 #include <iostream>
 
-#ifndef SILENT
+#ifdef SILENT
+
+#define INFORMATION(STUFF)
+
+#elif defined PRINT
 
 #define INFORMATION(STUFF) \
 	std::cout << STUFF << std::endl;
 
 #else
 
-#define INFORMATION(STUFF)
+#include <fstream>
+
+extern std::ofstream fs;
+
+#define INFORMATION(STUFF) \
+	fs << STUFF << std::endl;
 
 #endif
 
